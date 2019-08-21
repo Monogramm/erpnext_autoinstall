@@ -1,0 +1,8 @@
+Example Email Address:nailami60@mail.ru
+Email Server:imap.mail.ru
+Attachment Limit (MB):5
+SMTP Server:smtp.mail.ru
+Port:80
+Use IMAP:1
+Use SSL:0
+Use TLS:0
