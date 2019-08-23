@@ -1,9 +1,0 @@
-LDAP Email Field:email@mail.com
-Base Distinguished Name (DN):BASE DESTIGNATED NAME
-LDAP First Name Field:FIRST NAME
-LDAP Search String:SEARCH STRING
-LDAP Server Url:SERVER URL
-Default Role on Creation:Customer
-LDAP Username Field:Username
-Organizational Unit for Users:UNIT
-Password for Base DN:qwerty007

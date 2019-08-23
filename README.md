@@ -4,4 +4,4 @@ descr
 
 #### License
 
-MIT
+AGPL
