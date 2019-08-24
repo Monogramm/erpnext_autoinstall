@@ -12,7 +12,7 @@ def configure_app():
 def configure_domain():
     email_account = frappe.new_doc("Email Domain")
     email_account.email_server = os.getenv('EMAIL_SERVER')
-    #email_account.email_id = os.getenv('EMAIL_ADDRESS')
+    email_account.email_id = os.getenv('EMAIL_ADDRESS')
     email_account.domain_name = os.getenv('EMAIL_DOMAIN_NAME')
     email_account.smtp_server = os.getenv('EMAIL_SMTP_SERVER')
     email_account.smtp_port = int(os.getenv('EMAIL_PORT'))
