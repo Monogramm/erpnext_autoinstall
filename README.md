@@ -6,8 +6,20 @@
 
 ## Erpnext Autoinstall
 
-descr
+:alembic: **Experimental** ERPNext application for automatic setup.
+
+The objective is to setup ERPNext automatically based on environment variables, mainly for docker usage.
 
 #### License
 
 AGPL
+
+## Installation
+
+  ```
+  bench get-app --branch develop erpnext_autoinstall https://github.com/Monogramm/erpnext_ocr
+  bench install-app erpnext_autoinstall
+  ```
+
+Environment variables for automatic setup:
+**TODO**
