@@ -3,13 +3,13 @@ from __future__ import unicode_literals
 from . import __version__ as app_version
 
 app_name = "erpnext_autoinstall"
-app_title = "Erpnext Autoinstall"
-app_publisher = "Emil"
-app_description = "descr"
-app_icon = "octicon octicon-file-directory"
-app_color = "grey"
-app_email = "amionv99@gmail.com"
-app_license = "MIT"
+app_title = "ERPNext AutoInstall"
+app_publisher = "Monogramm"
+app_description = "Frappe application to automatically setup ERPNext through environment variables."
+app_icon = "octicon octicon-circuit-board"
+app_color = "#252525"
+app_email = "opensource@monogramm.io"
+app_license = "AGPLv3"
 
 # Includes in <head>
 # ------------------
@@ -55,7 +55,7 @@ app_license = "MIT"
 # ------------
 
 # before_install = "erpnext_autoinstall.install.before_install"
-after_install = "configuration.configuration.configure_app"
+after_install = "erpnext_autoinstall.install.after_install"
 
 # Desk Notifications
 # ------------------
