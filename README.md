@@ -18,7 +18,7 @@ AGPL
 ## Installation
 
   ```
-  bench get-app --branch develop erpnext_autoinstall https://github.com/Monogramm/erpnext_ocr
+  bench get-app --branch develop erpnext_autoinstall https://github.com/Monogramm/erpnext_autoinstall
   bench install-app erpnext_autoinstall
   ```
 
