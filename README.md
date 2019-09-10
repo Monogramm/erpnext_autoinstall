@@ -21,5 +21,12 @@ AGPL
   bench install-app erpnext_autoinstall
   ```
 
+## How to use
+
 Environment variables for automatic setup:
-**TODO**
+* WebSite configuration
+  * **TODO**
+* Email configuration
+  * **TODO**
+* LDAP configuration
+  * **TODO**
