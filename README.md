@@ -5,7 +5,7 @@
 
 [![License: AGPL v3][uri_license_image]][uri_license]
 
-## Erpnext Autoinstall
+## ERPNext AutoInstall
 
 :alembic: **Experimental** ERPNext application for automatic setup.
 
@@ -22,5 +22,12 @@ AGPL
   bench install-app erpnext_autoinstall
   ```
 
+## How to use
+
 Environment variables for automatic setup:
-**TODO**
+* WebSite configuration
+  * **TODO**
+* Email configuration
+  * **TODO**
+* LDAP configuration
+  * **TODO**

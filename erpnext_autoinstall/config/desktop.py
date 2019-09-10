@@ -5,10 +5,10 @@ from frappe import _
 def get_data():
 	return [
 		{
-			"module_name": "Erpnext Autoinstall",
-			"color": "grey",
-			"icon": "octicon octicon-file-directory",
+			"module_name": "ERPNext AutoInstall",
+			"color": "#252525",
+			"icon": "octicon octicon-circuit-board",
 			"type": "module",
-			"label": _("Erpnext Autoinstall")
+			"label": _("ERPNext AutoInstall")
 		}
 	]
