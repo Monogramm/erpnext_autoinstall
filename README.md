@@ -4,7 +4,7 @@
 
 [![License: AGPL v3][uri_license_image]][uri_license]
 
-## Erpnext Autoinstall
+## ERPNext AutoInstall
 
 :alembic: **Experimental** ERPNext application for automatic setup.
 
@@ -17,7 +17,7 @@ AGPL
 ## Installation
 
   ```
-  bench get-app --branch develop erpnext_autoinstall https://github.com/Monogramm/erpnext_ocr
+  bench get-app --branch develop erpnext_autoinstall https://github.com/Monogramm/erpnext_autoinstall
   bench install-app erpnext_autoinstall
   ```
 
