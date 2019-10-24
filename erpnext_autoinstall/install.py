@@ -5,8 +5,11 @@ import frappe
 
 def after_install():
     disable_registration()
+    print("REGISTRATION HAS BEEN DISABLED")
     configure_email()
+    print("EMAIL HAS BEEN CONFIGURED")
     configure_ldap()
+    print("LDAP HAS BEEN CONFIGURED")
 
 
 def disable_registration():
@@ -36,14 +39,13 @@ def configure_account():
     email_account = frappe.new_doc("Email Account")
     email_account.email_account_name = os.getenv("EMAIL_ADDRESS")
     email_account.password = os.getenv("EMAIL_PASSWORD")
-    email_account.domain = os.getenv("EMAIL_DOMAIN")
+    email_account.domain = os.getenv("EMAIL_DOMAIN_NAME")
     email_account.save()
 
 
 def configure_email():
     configure_domain()
     configure_account()
-    # TODO Update Admin email address
 
 #Todo: maybe should remade as @decorator
 def configure_ldap():
