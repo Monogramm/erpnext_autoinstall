@@ -20,17 +20,16 @@ def disable_registration():
 
 def configure_domain():
     if os.getenv('EMAIL SERVER') and os.getenv('EMAIL_ADDRESS') and os.getenv('EMAIL_DOMAIN_NAME') and os.getenv(
-            'EMAIL_SMTP_SERVER') and os.getenv('EMAIL_PORT') and os.getenv('EMAIL_USE_IMAP') and int(
-        os.getenv('EMAIL_USE_TLS')) and os.getenv('EMAIL_ATTACHMENT_LIMIT_MB'):
+            'EMAIL_SMTP_SERVER') and os.getenv('EMAIL_USE_IMAP') and os.getenv('EMAIL_ATTACHMENT_LIMIT_MB'):
         email_domain = frappe.new_doc("Email Domain")
         email_domain.email_server = os.getenv('EMAIL_SERVER')
         email_domain.email_id = os.getenv('EMAIL_ADDRESS')
         email_domain.domain_name = os.getenv('EMAIL_DOMAIN_NAME')
         email_domain.smtp_server = os.getenv('EMAIL_SMTP_SERVER')
-        email_domain.smtp_port = int(os.getenv('EMAIL_PORT'), '993')
+        email_domain.smtp_port = int(os.getenv('EMAIL_PORT', '993'))
         email_domain.use_imap = int(os.getenv('EMAIL_USE_IMAP'))
         email_domain.use_ssl = int(os.getenv('EMAIL_USE_SSL', '1'))
-        email_domain.tls = int(os.getenv('EMAIL_USE_TLS'))
+        email_domain.tls = int(os.getenv('EMAIL_USE_TLS', '0'))
         email_domain.attachment_limit = int(os.getenv('EMAIL_ATTACHMENT_LIMIT_MB'))
         email_domain.save()
 
