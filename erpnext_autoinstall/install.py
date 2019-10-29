@@ -9,7 +9,7 @@ def after_install():
     configure_email()
     print("EMAIL HAS BEEN CONFIGURED")
     configure_ldap()
-    print("LDAP HAS BEEN CONFIGURED")
+    print("LDAP HAS BEEN CONFIGURED!")
 
 
 def disable_registration():
@@ -20,16 +20,16 @@ def disable_registration():
 
 def configure_domain():
     if os.getenv('EMAIL SERVER') and os.getenv('EMAIL_ADDRESS') and os.getenv('EMAIL_DOMAIN_NAME') and os.getenv(
-            'EMAIL_SMTP_SERVER') and os.getenv('EMAIL_PORT') and os.getenv('EMAIL_USE_IMAP') and os.getenv(
-        'EMAIL_USE_SSL') and int(os.getenv('EMAIL_USE_TLS')) and os.getenv('EMAIL_ATTACHMENT_LIMIT_MB'):
+            'EMAIL_SMTP_SERVER') and os.getenv('EMAIL_PORT') and os.getenv('EMAIL_USE_IMAP') and int(
+        os.getenv('EMAIL_USE_TLS')) and os.getenv('EMAIL_ATTACHMENT_LIMIT_MB'):
         email_domain = frappe.new_doc("Email Domain")
         email_domain.email_server = os.getenv('EMAIL_SERVER')
         email_domain.email_id = os.getenv('EMAIL_ADDRESS')
         email_domain.domain_name = os.getenv('EMAIL_DOMAIN_NAME')
         email_domain.smtp_server = os.getenv('EMAIL_SMTP_SERVER')
-        email_domain.smtp_port = int(os.getenv('EMAIL_PORT'))
+        email_domain.smtp_port = int(os.getenv('EMAIL_PORT'), '993')
         email_domain.use_imap = int(os.getenv('EMAIL_USE_IMAP'))
-        email_domain.use_ssl = int(os.getenv('EMAIL_USE_SSL'))
+        email_domain.use_ssl = int(os.getenv('EMAIL_USE_SSL', '1'))
         email_domain.tls = int(os.getenv('EMAIL_USE_TLS'))
         email_domain.attachment_limit = int(os.getenv('EMAIL_ATTACHMENT_LIMIT_MB'))
         email_domain.save()
@@ -47,7 +47,8 @@ def configure_email():
     configure_domain()
     configure_account()
 
-#Todo: maybe should remade as @decorator
+
+# Todo: maybe should remade as @decorator
 def configure_ldap():
     if os.getenv('LDAP_SERVER_URL') and os.getenv('LDAP_BASE_DN') and os.getenv('LDAP_PASSWORD') and os.getenv(
             'LDAP_USERS_ORGANIZATIONAL_UNIT') and os.getenv('LDAP_DEFAULT_ROLE', 'Employee') and os.getenv(
