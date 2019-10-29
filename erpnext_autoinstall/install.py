@@ -5,17 +5,15 @@ import frappe
 
 def after_install():
     disable_registration()
-    print("REGISTRATION HAS BEEN DISABLED")
     configure_email()
-    print("EMAIL HAS BEEN CONFIGURED")
     configure_ldap()
-    print("LDAP HAS BEEN CONFIGURED!")
 
 
 def disable_registration():
     doc = frappe.get_doc("Website Settings")
     doc.disable_signup = int(os.getenv('DISABLE_SIGNUP', '0'))
     doc.save()
+    print("REGISTRATION HAS BEEN DISABLED")
 
 
 def configure_domain():
@@ -45,6 +43,7 @@ def configure_account():
 def configure_email():
     configure_domain()
     configure_account()
+    print("EMAIL HAS BEEN CONFIGURED")
 
 
 # Todo: maybe should remade as @decorator
@@ -69,7 +68,7 @@ def configure_ldap():
         doc.ldap_mobile_field = os.getenv('LDAP_MOBILE_FIELD', 'mobile')
 
         doc.ssl_tls_mode = os.getenv('LDAP_SSL_TLS_MODE')
-
-        # TODO Enable LDAP Settings
+        doc.enabled = 1
 
         doc.save()
+        print("LDAP HAS BEEN CONFIGURED!")
