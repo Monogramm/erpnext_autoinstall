@@ -76,8 +76,9 @@ services:
       - REDIS_CACHE_HOST=erpnext_redis_cache
       - REDIS_QUEUE_HOST=erpnext_redis_queue
       - REDIS_SOCKETIO_HOST=erpnext_redis_socketio
-      # Autoinstall
-      # Email configuration
+      # Autoinstall - WebSite configuration
+      - DISABLE_SIGNUP=${DISABLE_SIGNUP}
+      # Autoinstall - Email configuration
       - EMAIL_SERVER=${EMAIL_SERVER}
       - EMAIL_ADDRESS=${EMAIL_ADDRESS}
       - EMAIL_DOMAIN_NAME=${EMAIL_DOMAIN_NAME}
@@ -88,7 +89,7 @@ services:
       - EMAIL_USE_TLS=${EMAIL_USE_TLS}
       - EMAIL_ATTACHMENT_LIMIT_MB=${EMAIL_ATTACHMENT_LIMIT_MB}
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
-      # LDAP configuration
+      # Autoinstall - LDAP configuration
       - LDAP_SERVER_URL=${LDAP_SERVER_URL}
       - LDAP_BASE_DN=${LDAP_BASE_DN}
       - LDAP_USERS_ORGANIZATIONAL_UNIT=${LDAP_USERS_ORGANIZATIONAL_UNIT}
