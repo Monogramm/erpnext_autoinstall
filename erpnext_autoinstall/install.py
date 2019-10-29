@@ -51,12 +51,7 @@ def configure_email():
 # Todo: maybe should remade as @decorator
 def configure_ldap():
     if os.getenv('LDAP_SERVER_URL') and os.getenv('LDAP_BASE_DN') and os.getenv('LDAP_PASSWORD') and os.getenv(
-            'LDAP_USERS_ORGANIZATIONAL_UNIT') and os.getenv('LDAP_DEFAULT_ROLE', 'Employee') and os.getenv(
-        'LDAP_SEARCH_STRING', 'uid=\{0\}') and os.getenv('LDAP_EMAIL', 'mail') and os.getenv('LDAP_USERNAME',
-                                                                                             'uid') and os.getenv(
-        'LDAP_FIRST_NAME', 'givenName') and os.getenv('LDAP_LAST_NAME', 'sn') and os.getenv('LDAP_PHONE_FIELD',
-                                                                                            'telephoneNumber') and os.getenv(
-        'LDAP_MOBILE_FIELD', 'mobile') and os.getenv('LDAP_SSL_TLS_MODE'):
+            'LDAP_USERS_ORGANIZATIONAL_UNIT') and os.getenv('LDAP_SSL_TLS_MODE'):
         doc = frappe.get_doc("LDAP Settings")
 
         doc.ldap_server_url = os.getenv('LDAP_SERVER_URL')
