@@ -1,13 +1,14 @@
 
 [uri_license]: http://www.gnu.org/licenses/agpl.html
 [uri_license_image]: https://img.shields.io/badge/License-AGPL%20v3-blue.svg
-[![Build Status](https://travis-ci.org/Monogramm/erpnext_autoinstall.svg)](https://travis-ci.org/Monogramm/erpnext_autoinstall)
 
 [![License: AGPL v3][uri_license_image]][uri_license]
+[![Managed with Taiga.io](https://img.shields.io/badge/managed%20with-TAIGA.io-709f14.svg)](https://tree.taiga.io/project/monogrammbot-monogrammerpnext_autoinstall/ "Managed with Taiga.io")
+[![Build Status](https://travis-ci.org/Monogramm/erpnext_autoinstall.svg)](https://travis-ci.org/Monogramm/erpnext_autoinstall)
 
 ## ERPNext AutoInstall
 
-:alembic: **Experimental** ERPNext application for automatic setup.
+:alembic: **Experimental** Frappe application for automatic setup of ERPNext.
 
 The objective is to setup ERPNext automatically based on environment variables, mainly for docker usage.
 
