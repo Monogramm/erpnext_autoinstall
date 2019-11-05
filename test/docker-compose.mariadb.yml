@@ -76,6 +76,12 @@ services:
       - REDIS_CACHE_HOST=erpnext_redis_cache
       - REDIS_QUEUE_HOST=erpnext_redis_queue
       - REDIS_SOCKETIO_HOST=erpnext_redis_socketio
+      # Autoinstall - LDAP configuration
+      - LDAP_ENABLED=${LDAP_ENABLED}
+      - LDAP_SERVER_URL=${LDAP_SERVER_URL}
+      - LDAP_BASE_DN=${LDAP_BASE_DN}
+      - LDAP_USERS_ORGANIZATIONAL_UNIT=${LDAP_USERS_ORGANIZATIONAL_UNIT}
+      - LDAP_SSL_TLS_MODE=${LDAP_SSL_TLS_MODE}
       # Autoinstall - WebSite configuration
       - DISABLE_SIGNUP=${DISABLE_SIGNUP}
       # Autoinstall - Email domain configuration
@@ -91,12 +97,6 @@ services:
       # Autoinstall - Email accounts configuration
       - EMAIL_ACCOUNT_ADDRESS_ACCOUNT=${EMAIL_ACCOUNT_ADDRESS_ACCOUNT}
       - EMAIL_ACCOUNT_PASSWORD=${EMAIL_ACCOUNT_PASSWORD}
-      # Autoinstall - LDAP configuration
-      - LDAP_ENABLED=1
-      - LDAP_SERVER_URL=${LDAP_SERVER_URL}
-      - LDAP_BASE_DN=${LDAP_BASE_DN}
-      - LDAP_USERS_ORGANIZATIONAL_UNIT=${LDAP_USERS_ORGANIZATIONAL_UNIT}
-      - LDAP_SSL_TLS_MODE=${LDAP_SSL_TLS_MODE}
     volumes:
       - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /srv/erpnext/frappe/logs:/home/frappe/frappe-bench/logs
