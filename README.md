@@ -28,19 +28,6 @@ AGPL
 Environment variables for automatic setup:
 * WebSite configuration
   * `DISABLE_SIGNUP`
-* Email domain configuration
-  * `EMAIL_DOMAIN_SERVER`
-  * `EMAIL_DOMAIN_ID`
-  * `EMAIL_DOMAIN_NAME`
-  * `EMAIL_DOMAIN_SMTP_SERVER`
-  * `EMAIL_DOMAIN_PORT`
-  * `EMAIL_DOMAIN_USE_IMAP`
-  * `EMAIL_DOMAIN_USE_SSL`
-  * `EMAIL_DOMAIN_USE_TLS`
-  * `EMAIL_DOMAIN_ATTACHMENT_LIMIT_MB`
-* Email accounts configuration (WIP)
-  * `EMAIL_ACCOUNT_ADDRESS_ACCOUNT`
-  * `EMAIL_ACCOUNT_PASSWORD`
 * LDAP configuration
   * `LDAP_ENABLED`
   * `LDAP_SERVER_URL`
@@ -57,3 +44,18 @@ Environment variables for automatic setup:
   * `LDAP_PHONE_FIELD`
   * `LDAP_MOBILE_FIELD`
   * `LDAP_SSL_TLS_MODE`
+  
+Environment variables not ready yet:
+* Email domain configuration
+  * `EMAIL_DOMAIN_SERVER`
+  * `EMAIL_DOMAIN_ID`
+  * `EMAIL_DOMAIN_NAME`
+  * `EMAIL_DOMAIN_SMTP_SERVER`
+  * `EMAIL_DOMAIN_PORT`
+  * `EMAIL_DOMAIN_USE_IMAP`
+  * `EMAIL_DOMAIN_USE_SSL`
+  * `EMAIL_DOMAIN_USE_TLS`
+  * `EMAIL_DOMAIN_ATTACHMENT_LIMIT_MB`
+* Email accounts configuration
+  * `EMAIL_ACCOUNT_ADDRESS_ACCOUNT`
+  * `EMAIL_ACCOUNT_PASSWORD`

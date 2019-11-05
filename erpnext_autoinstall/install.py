@@ -5,48 +5,16 @@ import frappe
 
 def after_install():
     disable_registration()
-    configure_email()
     configure_ldap()
+    # FIXME: Will not "really" work since first run wizard will reset email settings...
+    configure_email()
 
 
 def disable_registration():
     doc = frappe.get_doc("Website Settings")
     doc.disable_signup = int(os.getenv('DISABLE_SIGNUP', '0'))
     doc.save()
-    print("REGISTRATION HAS BEEN CONFIGURED!")
-
-
-def configure_domain():
-    if os.getenv('EMAIL SERVER') and os.getenv('EMAIL_DOMAIN_ID') and os.getenv('EMAIL_DOMAIN_NAME') and os.getenv(
-            'EMAIL_DOMAIN_SMTP_SERVER') and os.getenv('EMAIL_DOMAIN_USE_IMAP') and os.getenv('EMAIL_DOMAIN_ATTACHMENT_LIMIT_MB'):
-        email_domain = frappe.new_doc("Email Domain")
-        email_domain.email_server = os.getenv('EMAIL_DOMAIN_SERVER')
-        email_domain.email_id = os.getenv('EMAIL_DOMAIN_ID')
-        email_domain.domain_name = os.getenv('EMAIL_DOMAIN_NAME')
-        email_domain.smtp_server = os.getenv('EMAIL_DOMAIN_SMTP_SERVER')
-        email_domain.smtp_port = int(os.getenv('EMAIL_DOMAIN_PORT', '993'))
-        email_domain.use_imap = int(os.getenv('EMAIL_DOMAIN_USE_IMAP'))
-        email_domain.use_ssl = int(os.getenv('EMAIL_DOMAIN_USE_SSL', '1'))
-        email_domain.tls = int(os.getenv('EMAIL_DOMAIN_USE_TLS', '0'))
-        email_domain.attachment_limit = int(os.getenv('EMAIL_DOMAIN_ATTACHMENT_LIMIT_MB'))
-        email_domain.save()
-        print("EMAIL DOMAIN HAS BEEN CONFIGURED!")
-
-
-def configure_account():
-    email_account = frappe.new_doc("Email Account")
-    email_account.email_account_name = os.getenv("EMAIL_ACCOUNT_ADDRESS_ACCOUNT")
-    email_account.password = os.getenv("EMAIL_ACCOUNT_PASSWORD")
-    email_account.domain = os.getenv("EMAIL_DOMAIN_NAME")
-    email_account.save()
-    print("EMAIL ACCOUNT(S) HAS BEEN CONFIGURED!")
-
-
-def configure_email():
-    configure_domain()
-    # TODO: Rework email account(s) configuration
-    #configure_account()
-    # TODO: Add a user account(s) update
+    print("Website signup configuration applied.")
 
 
 # Todo: maybe should remade as @decorator
@@ -75,4 +43,36 @@ def configure_ldap():
         doc.enabled = int(os.getenv('LDAP_ENABLED', '1'))
 
         doc.save()
-        print("LDAP HAS BEEN CONFIGURED!")
+        print("LDAP Integration configuration applied.")
+
+# FIXME: Will not "really" work since first run wizard will reset email settings...
+def configure_domain():
+    if os.getenv('EMAIL SERVER') and os.getenv('EMAIL_DOMAIN_ID') and os.getenv('EMAIL_DOMAIN_NAME') and os.getenv(
+            'EMAIL_DOMAIN_SMTP_SERVER') and os.getenv('EMAIL_DOMAIN_USE_IMAP') and os.getenv('EMAIL_DOMAIN_ATTACHMENT_LIMIT_MB'):
+        email_domain = frappe.new_doc("Email Domain")
+        email_domain.email_server = os.getenv('EMAIL_DOMAIN_SERVER')
+        email_domain.email_id = os.getenv('EMAIL_DOMAIN_ID')
+        email_domain.domain_name = os.getenv('EMAIL_DOMAIN_NAME')
+        email_domain.smtp_server = os.getenv('EMAIL_DOMAIN_SMTP_SERVER')
+        email_domain.smtp_port = int(os.getenv('EMAIL_DOMAIN_PORT', '993'))
+        email_domain.use_imap = int(os.getenv('EMAIL_DOMAIN_USE_IMAP'))
+        email_domain.use_ssl = int(os.getenv('EMAIL_DOMAIN_USE_SSL', '1'))
+        email_domain.tls = int(os.getenv('EMAIL_DOMAIN_USE_TLS', '0'))
+        email_domain.attachment_limit = int(os.getenv('EMAIL_DOMAIN_ATTACHMENT_LIMIT_MB'))
+        email_domain.save()
+        print("Email domain configuration applied.")
+
+# TODO: Rework email account(s) configuration to update existing @example.com
+def configure_account():
+    email_account = frappe.new_doc("Email Account")
+    email_account.email_account_name = os.getenv("EMAIL_ACCOUNT_ADDRESS_ACCOUNT")
+    email_account.password = os.getenv("EMAIL_ACCOUNT_PASSWORD")
+    email_account.domain = os.getenv("EMAIL_DOMAIN_NAME")
+    email_account.save()
+    print("Email accounts configuration applied.")
+
+
+def configure_email():
+    configure_domain()
+    #configure_account()
+    # TODO: Add a user email address update (admin@example.com)
