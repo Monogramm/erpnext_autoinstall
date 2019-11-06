@@ -7,14 +7,14 @@ def after_install():
     disable_registration()
     configure_ldap()
     # FIXME: Will not "really" work since first run wizard will reset email settings...
-    configure_email()
+    #configure_email()
 
 
 def disable_registration():
     doc = frappe.get_doc("Website Settings")
     doc.disable_signup = int(os.getenv('DISABLE_SIGNUP', '0'))
     doc.save()
-    print("Website signup configuration applied.")
+    print("AUTOINSTALL - Website signup configuration applied.")
 
 
 # Todo: maybe should remade as @decorator
@@ -43,7 +43,7 @@ def configure_ldap():
         doc.enabled = int(os.getenv('LDAP_ENABLED', '1'))
 
         doc.save()
-        print("LDAP Integration configuration applied.")
+        print("AUTOINSTALL - LDAP Integration configuration applied.")
 
 # FIXME: Will not "really" work since first run wizard will reset email settings...
 def configure_domain():
@@ -60,7 +60,7 @@ def configure_domain():
         email_domain.tls = int(os.getenv('EMAIL_DOMAIN_USE_TLS', '0'))
         email_domain.attachment_limit = int(os.getenv('EMAIL_DOMAIN_ATTACHMENT_LIMIT_MB'))
         email_domain.save()
-        print("Email domain configuration applied.")
+        print("AUTOINSTALL - Email domain configuration applied.")
 
 # TODO: Rework email account(s) configuration to update existing @example.com
 def configure_account():
@@ -69,7 +69,7 @@ def configure_account():
     email_account.password = os.getenv("EMAIL_ACCOUNT_PASSWORD")
     email_account.domain = os.getenv("EMAIL_DOMAIN_NAME")
     email_account.save()
-    print("Email accounts configuration applied.")
+    print("AUTOINSTALL - Email accounts configuration applied.")
 
 
 def configure_email():
