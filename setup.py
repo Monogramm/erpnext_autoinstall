@@ -15,9 +15,9 @@ with open('erpnext_autoinstall/__init__.py', 'rb') as f:
 setup(
 	name='erpnext_autoinstall',
 	version=version,
-	description='descr',
-	author='Emil',
-	author_email='amionv99@gmail.com',
+	description='Frappe application to automatically setup ERPNext through environment variables.',
+	author='Monogramm',
+	author_email='opensource@monogramm.io',
 	packages=find_packages(),
 	zip_safe=False,
 	include_package_data=True,

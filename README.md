@@ -6,24 +6,25 @@
 [![Managed with Taiga.io](https://img.shields.io/badge/managed%20with-TAIGA.io-709f14.svg)](https://tree.taiga.io/project/monogrammbot-monogrammerpnext_autoinstall/ "Managed with Taiga.io")
 [![Build Status](https://travis-ci.org/Monogramm/erpnext_autoinstall.svg)](https://travis-ci.org/Monogramm/erpnext_autoinstall)
 
-## ERPNext AutoInstall
+# ERPNext AutoInstall
 
-:alembic: **Experimental** Frappe application for automatic setup of ERPNext.
+> :alembic: **Experimental** Frappe application for automatic setup of ERPNext.
 
 The objective is to setup ERPNext automatically based on environment variables, mainly for docker usage.
 
-#### License
+https://discuss.erpnext.com/t/setup-ldap-through-command-line/49735
 
-AGPL
+## :construction: Install
 
-## Installation
+```sh
+bench get-app --branch master erpnext_autoinstall https://github.com/Monogramm/erpnext_autoinstall
+```
 
-  ```
-  bench get-app --branch develop erpnext_autoinstall https://github.com/Monogramm/erpnext_autoinstall
-  bench install-app erpnext_autoinstall
-  ```
+## :rocket: Usage
 
-## How to use
+```sh
+bench install-app erpnext_autoinstall
+```
 
 Environment variables for automatic setup:
 * WebSite configuration
@@ -45,7 +46,7 @@ Environment variables for automatic setup:
   * `LDAP_MOBILE_FIELD`
   * `LDAP_SSL_TLS_MODE`
   
-Environment variables not ready yet:
+Environment variables **not ready yet**:
 * Email domain configuration
   * `EMAIL_DOMAIN_SERVER`
   * `EMAIL_DOMAIN_ID`
@@ -59,3 +60,38 @@ Environment variables not ready yet:
 * Email accounts configuration
   * `EMAIL_ACCOUNT_ADDRESS_ACCOUNT`
   * `EMAIL_ACCOUNT_PASSWORD`
+
+## :white_check_mark: Run tests
+
+```sh
+bench bench run-tests --profile --app erpnext_autoinstall
+```
+
+## :bust_in_silhouette: Authors
+
+**Monogramm**
+
+* Website: https://www.monogramm.io
+* Github: [@Monogramm](https://github.com/Monogramm)
+
+**Аминов Эмиль**
+
+* Website: https://aminove99.github.io/
+* Github: [@AminovE99](https://github.com/AminovE99)
+
+## :handshake: Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Monogramm/erpnext_autoinstall/issues).
+[Check the contributing guide](./CONTRIBUTING.md).<br />
+
+## :thumbsup: Show your support
+
+Give a :star: if this project helped you!
+
+## :page_facing_up: License
+
+Copyright © 2019 [Monogramm](https://github.com/Monogramm).<br />
+This project is [AGPL v3](uri_license) licensed.
+
+***
+_This README was generated with :heart: by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
