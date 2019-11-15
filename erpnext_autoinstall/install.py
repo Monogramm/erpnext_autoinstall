@@ -4,21 +4,24 @@ import frappe
 
 
 def after_install():
-    disable_registration()
+    """Frappe trigger after application install."""
+    configure_website()
     configure_ldap()
     # FIXME: Will not "really" work since first run wizard will reset email settings...
     #configure_email()
 
 
-def disable_registration():
+def configure_website():
+    """Configure Website settings."""
     doc = frappe.get_doc("Website Settings")
     doc.disable_signup = int(os.getenv('DISABLE_SIGNUP', '0'))
     doc.save()
-    print("AUTOINSTALL - Website signup configuration applied.")
+    print("AUTOINSTALL - Website configuration applied.")
 
 
-# Todo: maybe should remade as @decorator
+# TODO: maybe should remade as @decorator
 def configure_ldap():
+    """Configure LDAP Integration settings."""
     if os.getenv('LDAP_SERVER_URL') and os.getenv('LDAP_BASE_DN') and os.getenv('LDAP_PASSWORD') and os.getenv(
             'LDAP_USERS_ORGANIZATIONAL_UNIT') and os.getenv('LDAP_SSL_TLS_MODE'):
         doc = frappe.get_doc("LDAP Settings")
@@ -29,7 +32,7 @@ def configure_ldap():
 
         doc.organizational_unit = os.getenv('LDAP_USERS_ORGANIZATIONAL_UNIT')
         doc.default_role = os.getenv('LDAP_DEFAULT_ROLE', 'Employee')
-        doc.ldap_search_string = os.getenv('LDAP_SEARCH_STRING', 'uid=\{0\}')
+        doc.ldap_search_string = os.getenv('LDAP_SEARCH_STRING', 'uid={0}')
 
         doc.ldap_email_field = os.getenv('LDAP_EMAIL_FIELD', 'mail')
         doc.ldap_username_field = os.getenv('LDAP_USERNAME_FIELD', 'uid')
@@ -45,8 +48,9 @@ def configure_ldap():
         doc.save()
         print("AUTOINSTALL - LDAP Integration configuration applied.")
 
+
 # FIXME: Will not "really" work since first run wizard will reset email settings...
-def configure_domain():
+def configure_email_domain():
     if os.getenv('EMAIL SERVER') and os.getenv('EMAIL_DOMAIN_ID') and os.getenv('EMAIL_DOMAIN_NAME') and os.getenv(
             'EMAIL_DOMAIN_SMTP_SERVER') and os.getenv('EMAIL_DOMAIN_USE_IMAP') and os.getenv('EMAIL_DOMAIN_ATTACHMENT_LIMIT_MB'):
         email_domain = frappe.new_doc("Email Domain")
@@ -62,8 +66,9 @@ def configure_domain():
         email_domain.save()
         print("AUTOINSTALL - Email domain configuration applied.")
 
+
 # TODO: Rework email account(s) configuration to update existing @example.com
-def configure_account():
+def configure_email_account():
     email_account = frappe.new_doc("Email Account")
     email_account.email_account_name = os.getenv("EMAIL_ACCOUNT_ADDRESS_ACCOUNT")
     email_account.password = os.getenv("EMAIL_ACCOUNT_PASSWORD")
@@ -73,6 +78,7 @@ def configure_account():
 
 
 def configure_email():
-    configure_domain()
-    #configure_account()
+    """Configure Email settings."""
+    configure_email_domain()
+    #configure_email_account()
     # TODO: Add a user email address update (admin@example.com)
