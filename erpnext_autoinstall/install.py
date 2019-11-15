@@ -8,7 +8,7 @@ def after_install():
     configure_website()
     configure_ldap()
     # FIXME: Will not "really" work since first run wizard will reset email settings...
-    #configure_email()
+    # configure_email()
 
 
 def configure_website():
@@ -80,5 +80,5 @@ def configure_email_account():
 def configure_email():
     """Configure Email settings."""
     configure_email_domain()
-    #configure_email_account()
+    # configure_email_account()
     # TODO: Add a user email address update (admin@example.com)
