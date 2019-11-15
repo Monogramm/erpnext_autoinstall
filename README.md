@@ -5,6 +5,7 @@
 [![License: AGPL v3][uri_license_image]][uri_license]
 [![Managed with Taiga.io](https://img.shields.io/badge/managed%20with-TAIGA.io-709f14.svg)](https://tree.taiga.io/project/monogrammbot-monogrammerpnext_autoinstall/ "Managed with Taiga.io")
 [![Build Status](https://travis-ci.org/Monogramm/erpnext_autoinstall.svg)](https://travis-ci.org/Monogramm/erpnext_autoinstall)
+[![Coverage Status](https://coveralls.io/repos/github/Monogramm/erpnext_autoinstall/badge.svg?branch=master)](https://coveralls.io/github/Monogramm/erpnext_autoinstall?branch=master)
 
 ## ERPNext AutoInstall
 
