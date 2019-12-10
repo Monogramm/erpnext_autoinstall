@@ -1,8 +1,4 @@
 # Changelog
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 <a name="1.0.0"></a>
 ## 1.0.0 (2019-11-06)
@@ -21,6 +17,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -  Initial commit [[366456d](https://github.com/Monogramm/erpnext_autoinstall/commit/366456d20802fe40400f9f9ef71658aad06ddc41)]
 
 
-
-***
-_This CHANGELOG was generated with :heart: by [gitmoji-changelog](https://github.com/frinyvonnick/gitmoji-changelog)_
