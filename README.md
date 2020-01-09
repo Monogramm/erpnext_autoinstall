@@ -3,8 +3,10 @@
 [uri_license_image]: https://img.shields.io/badge/License-AGPL%20v3-blue.svg
 
 [![License: AGPL v3][uri_license_image]][uri_license]
+[![gitmoji-changelog](https://img.shields.io/badge/Changelog-gitmoji-blue.svg)](https://github.com/frinyvonnick/gitmoji-changelog)
 [![Managed with Taiga.io](https://img.shields.io/badge/managed%20with-TAIGA.io-709f14.svg)](https://tree.taiga.io/project/monogrammbot-monogrammerpnext_autoinstall/ "Managed with Taiga.io")
 [![Build Status](https://travis-ci.org/Monogramm/erpnext_autoinstall.svg)](https://travis-ci.org/Monogramm/erpnext_autoinstall)
+[![Coverage Status](https://coveralls.io/repos/github/Monogramm/erpnext_autoinstall/badge.svg?branch=master)](https://coveralls.io/github/Monogramm/erpnext_autoinstall?branch=master)
 
 # ERPNext AutoInstall
 
@@ -13,6 +15,17 @@
 The objective is to setup ERPNext automatically based on environment variables, mainly for docker usage.
 
 https://discuss.erpnext.com/t/setup-ldap-through-command-line/49735
+
+## :chart_with_upwards_trend: Changes
+
+All notable changes to this project will be documented in [CHANGELOG](./CHANGELOG.md) file.
+
+This CHANGELOG is generated with :heart: by [gitmoji-changelog](https://github.com/frinyvonnick/gitmoji-changelog)
+This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## :bookmark: Roadmap
+
+See [Taiga.io](https://tree.taiga.io/project/monogrammbot-monogrammerpnext_autoinstall/ "Taiga.io monogrammbot-monogrammerpnext_autoinstall")
 
 ## :construction: Install
 
