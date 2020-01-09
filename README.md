@@ -73,6 +73,8 @@ Environment variables **not ready yet**:
 * Email accounts configuration
   * `EMAIL_ACCOUNT_ADDRESS_ACCOUNT`
   * `EMAIL_ACCOUNT_PASSWORD`
+* Home page configuration
+  * `HOME_PAGE`
 
 ## :white_check_mark: Run tests
 
