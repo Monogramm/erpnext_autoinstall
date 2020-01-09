@@ -42,6 +42,7 @@ bench install-app erpnext_autoinstall
 Environment variables for automatic setup:
 * WebSite configuration
   * `DISABLE_SIGNUP`
+  * `HOME_PAGE`
 * LDAP configuration
   * `LDAP_ENABLED`
   * `LDAP_SERVER_URL`
@@ -73,8 +74,6 @@ Environment variables **not ready yet**:
 * Email accounts configuration
   * `EMAIL_ACCOUNT_ADDRESS_ACCOUNT`
   * `EMAIL_ACCOUNT_PASSWORD`
-* Home page configuration
-  * `HOME_PAGE`
 
 ## :white_check_mark: Run tests
 

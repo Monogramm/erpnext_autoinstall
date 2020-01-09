@@ -15,10 +15,11 @@ def after_install():
 
 
 def configure_home_page():
-    home_page = os.getenv('HOME_PAGE', 'desk')
-    web_settings = frappe.get_doc("Website Settings")
-    web_settings.home_page = home_page
-    web_settings.save()
+    home_page = os.getenv('HOME_PAGE')
+    if home_page:
+        web_settings = frappe.get_doc("Website Settings")
+        web_settings.home_page = home_page
+        web_settings.save()
 
 def configure_website():
     """Configure Website settings."""
