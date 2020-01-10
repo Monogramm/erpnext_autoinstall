@@ -44,7 +44,7 @@ Environment variables for automatic setup:
 * WebSite configuration
   *   `DISABLE_SIGNUP`
   *   `HOME_PAGE`
-  
+
 * LDAP configuration
   *   `LDAP_ENABLED`
   *   `LDAP_SERVER_URL`
