@@ -73,7 +73,8 @@ Environment variables **not ready yet**:
   *   `EMAIL_DOMAIN_USE_SSL`
   *   `EMAIL_DOMAIN_USE_TLS`
   *   `EMAIL_DOMAIN_ATTACHMENT_LIMIT_MB`
-  
+
+
 * Email accounts configuration
   *   `EMAIL_ACCOUNT_ADDRESS_ACCOUNT`
   *   `EMAIL_ACCOUNT_PASSWORD`
