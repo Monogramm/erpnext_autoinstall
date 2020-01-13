@@ -39,40 +39,45 @@ bench get-app --branch master erpnext_autoinstall https://github.com/Monogramm/e
 bench install-app erpnext_autoinstall
 ```
 
+
 Environment variables for automatic setup:
 * WebSite configuration
-  * `DISABLE_SIGNUP`
+  *   `DISABLE_SIGNUP`
+  *   `HOME_PAGE`
+
 * LDAP configuration
-  * `LDAP_ENABLED`
-  * `LDAP_SERVER_URL`
-  * `LDAP_BASE_DN`
-  * `LDAP_PASSWORD`
-  * `LDAP_USERS_ORGANIZATIONAL_UNIT`
-  * `LDAP_DEFAULT_ROLE`
-  * `LDAP_SEARCH_STRING`
-  * `LDAP_EMAIL_FIELD`
-  * `LDAP_USERNAME_FIELD`
-  * `LDAP_FIRST_NAME_FIELD`
-  * `LDAP_MIDDLE_NAME_FIELD`
-  * `LDAP_LAST_NAME_FIELD`
-  * `LDAP_PHONE_FIELD`
-  * `LDAP_MOBILE_FIELD`
-  * `LDAP_SSL_TLS_MODE`
+  *   `LDAP_ENABLED`
+  *   `LDAP_SERVER_URL`
+  *   `LDAP_BASE_DN`
+  *   `LDAP_PASSWORD`
+  *   `LDAP_USERS_ORGANIZATIONAL_UNIT`
+  *   `LDAP_DEFAULT_ROLE`
+  *   `LDAP_SEARCH_STRING`
+  *   `LDAP_EMAIL_FIELD`
+  *   `LDAP_USERNAME_FIELD`
+  *   `LDAP_FIRST_NAME_FIELD`
+  *   `LDAP_MIDDLE_NAME_FIELD`
+  *   `LDAP_LAST_NAME_FIELD`
+  *   `LDAP_PHONE_FIELD`
+  *   `LDAP_MOBILE_FIELD`
+  *   `LDAP_SSL_TLS_MODE`
   
 Environment variables **not ready yet**:
 * Email domain configuration
-  * `EMAIL_DOMAIN_SERVER`
-  * `EMAIL_DOMAIN_ID`
-  * `EMAIL_DOMAIN_NAME`
-  * `EMAIL_DOMAIN_SMTP_SERVER`
-  * `EMAIL_DOMAIN_PORT`
-  * `EMAIL_DOMAIN_USE_IMAP`
-  * `EMAIL_DOMAIN_USE_SSL`
-  * `EMAIL_DOMAIN_USE_TLS`
-  * `EMAIL_DOMAIN_ATTACHMENT_LIMIT_MB`
+  *   `EMAIL_DOMAIN_SERVER`
+  *   `EMAIL_DOMAIN_ID`
+  *   `EMAIL_DOMAIN_NAME`
+  *   `EMAIL_DOMAIN_SMTP_SERVER`
+  *   `EMAIL_DOMAIN_PORT`
+  *   `EMAIL_DOMAIN_USE_IMAP`
+  *   `EMAIL_DOMAIN_USE_SSL`
+  *   `EMAIL_DOMAIN_USE_TLS`
+  *   `EMAIL_DOMAIN_ATTACHMENT_LIMIT_MB`
+
+
 * Email accounts configuration
-  * `EMAIL_ACCOUNT_ADDRESS_ACCOUNT`
-  * `EMAIL_ACCOUNT_PASSWORD`
+  *   `EMAIL_ACCOUNT_ADDRESS_ACCOUNT`
+  *   `EMAIL_ACCOUNT_PASSWORD`
 
 ## :white_check_mark: Run tests
 
