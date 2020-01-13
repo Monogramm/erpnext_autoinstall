@@ -13,7 +13,6 @@ def after_install():
     # FIXME: Will not "really" work since first run wizard will reset email settings...
     # configure_email()
 
-
 def configure_home_page():
     home_page = os.getenv('HOME_PAGE')
     if home_page:
