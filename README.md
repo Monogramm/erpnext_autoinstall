@@ -2,6 +2,8 @@
 [![gitmoji-changelog](https://img.shields.io/badge/Changelog-gitmoji-blue.svg)](https://github.com/frinyvonnick/gitmoji-changelog)
 [![Managed with Taiga.io](https://img.shields.io/badge/managed%20with-TAIGA.io-709f14.svg)](https://tree.taiga.io/project/monogrammbot-monogrammerpnext_autoinstall/ "Managed with Taiga.io")
 [![Build Status](https://travis-ci.org/Monogramm/erpnext_autoinstall.svg)](https://travis-ci.org/Monogramm/erpnext_autoinstall)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c50508ec09f644f590c11e0e50e10a96)](https://www.codacy.com/gh/Monogramm/erpnext_autoinstall?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Monogramm/erpnext_autoinstall&amp;utm_campaign=Badge_Grade)
+[![codecov](https://codecov.io/gh/Monogramm/erpnext_autoinstall/branch/master/graph/badge.svg)](https://codecov.io/gh/Monogramm/erpnext_autoinstall)
 [![Coverage Status](https://coveralls.io/repos/github/Monogramm/erpnext_autoinstall/badge.svg?branch=master)](https://coveralls.io/github/Monogramm/erpnext_autoinstall?branch=master)
 
 # ERPNext AutoInstall
