@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+# Copyright (c) 2020, Monogramm and Contributors
+# See license.txt
+
+from __future__ import unicode_literals
+
 import os
 
 import frappe
@@ -5,10 +11,19 @@ import frappe
 
 def after_install():
     """Frappe trigger after application install."""
+    configure_home_page()
     configure_website()
     configure_ldap()
     # FIXME: Will not "really" work since first run wizard will reset email settings...
     # configure_email()
+
+
+def configure_home_page():
+    home_page = os.getenv('HOME_PAGE')
+    if home_page:
+        web_settings = frappe.get_doc("Website Settings")
+        web_settings.home_page = home_page
+        web_settings.save()
 
 
 def configure_website():

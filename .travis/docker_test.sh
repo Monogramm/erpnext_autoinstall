@@ -62,46 +62,61 @@ FRAPPE_APP_UNIT_TEST_PROFILE="$(pwd)/sites/.${FRAPPE_APP_TO_TEST}_unit_tests.pro
 
 #bench run-tests --help
 
-# [TODO] Enable when Unit Tests added to application
+echo "Executing Unit Tests of '${FRAPPE_APP_TO_TEST}' app..."
+if [ "${TEST_VERSION}" = "10" ]; then
+    bench run-tests \
+        --app "${FRAPPE_APP_TO_TEST}" \
+        --junit-xml-output "${FRAPPE_APP_UNIT_TEST_REPORT}" \
+        --profile > "${FRAPPE_APP_UNIT_TEST_PROFILE}"
+else
+    bench run-tests \
+        --app "${FRAPPE_APP_TO_TEST}" \
+        --coverage \
+        --junit-xml-output "${FRAPPE_APP_UNIT_TEST_REPORT}" \
+        --profile > "${FRAPPE_APP_UNIT_TEST_PROFILE}"
 
-#echo "Executing Unit Tests of '${FRAPPE_APP_TO_TEST}' app..."
-#if [ "${TEST_VERSION}" = "10" ]; then
-#    bench run-tests \
-#        --app "${FRAPPE_APP_TO_TEST}" \
-#        --junit-xml-output "${FRAPPE_APP_UNIT_TEST_REPORT}" \
-#        --profile > "${FRAPPE_APP_UNIT_TEST_PROFILE}"
-#else
-#    bench run-tests \
-#        --app "${FRAPPE_APP_TO_TEST}" \
-#        --coverage \
-#        --profile > "${FRAPPE_APP_UNIT_TEST_PROFILE}"
-#    # FIXME https://github.com/frappe/frappe/issues/8809
-#    #    --junit-xml-output "${FRAPPE_APP_UNIT_TEST_REPORT}"
-#fi
+    # TODO When frappe supports coverage report in XML format
+    # https://github.com/frappe/frappe/issues/9696
+    # --coverage-report=xml
+fi
 
 ## Check result of tests
 if [ -f "${FRAPPE_APP_UNIT_TEST_REPORT}" ]; then
     echo "Checking Frappe application '${FRAPPE_APP_TO_TEST}' unit tests report..."
 
     if grep -E '(errors|failures)="[1-9][0-9]*"' "${FRAPPE_APP_UNIT_TEST_REPORT}"; then
-        echo "Unit Tests of '${FRAPPE_APP_TO_TEST}' app failed! See report for details:"
-        cat "${FRAPPE_APP_UNIT_TEST_REPORT}"
+        echo "Unit Tests of '${FRAPPE_APP_TO_TEST}' app failed! See logs for details."
+        #cat "${FRAPPE_APP_UNIT_TEST_REPORT}"
         exit 1
     else
-        echo "Unit Tests of '${FRAPPE_APP_TO_TEST}' app successful! See report for details:"
-        cat "${FRAPPE_APP_UNIT_TEST_REPORT}"
+        echo "Unit Tests of '${FRAPPE_APP_TO_TEST}' app successful!"
+        #cat "${FRAPPE_APP_UNIT_TEST_REPORT}"
     fi
 fi
 
 if [ -f ./sites/.coverage ]; then
-    echo "Sending Unit Tests coverage of '${FRAPPE_APP_TO_TEST}' app to Coveralls..."
-    coveralls -b "$(pwd)/apps/${FRAPPE_APP_TO_TEST}" -d ./sites/.coverage
+    set +e
+    cp ./sites/.coverage ./.coverage
+
+    echo "Unit Tests coverage report of '${FRAPPE_APP_TO_TEST}' app:"
+    coverage report -m
+
+    #echo "Sending Unit Tests coverage of '${FRAPPE_APP_TO_TEST}' app to Coveralls..."
+    #coveralls -b "$(pwd)/apps/${FRAPPE_APP_TO_TEST}" -d "$(pwd)/sites/.coverage"
+
+    # TODO When frappe supports coverage report in XML format
+    # https://github.com/frappe/frappe/issues/9696
+    #echo "Sending Unit Tests coverage of '${FRAPPE_APP_TO_TEST}' app to Codacy..."
+    #wget -qO - https://coverage.codacy.com/get.sh | sh -s report -l Python -r "$(pwd)/sites/coverage.xml"
+
+    rm ./.coverage
+    set -e
 fi
 
 if [ -f "${FRAPPE_APP_UNIT_TEST_PROFILE}" ]; then
     echo "Checking Frappe application '${FRAPPE_APP_TO_TEST}' unit tests profile..."
 
-    # XXX Is there any online services that could receive and display profiles?
+    # XXX Are there any online services that could receive and display profiles?
     #cat "${FRAPPE_APP_UNIT_TEST_PROFILE}"
 fi
 
@@ -120,6 +135,27 @@ fi
 #fi
 
 ## TODO Check result of UI tests
+
+
+
+################################################################################
+# TODO Generate docs
+
+#bench build-docs --help
+
+echo "Generating docs for '${FRAPPE_APP_TO_TEST}' app..."
+if [ "${TEST_VERSION}" = "10" ] || [ "${TEST_VERSION}" = "11" ]; then
+    set +e
+    bench build-docs \
+        --target ${FRAPPE_APP_TO_TEST} \
+        --docs-version ${FRAPPE_APP_TO_TEST} \
+        ${FRAPPE_APP_TO_TEST}
+    set -e
+else
+    echo "Building docs is not available for this version of Frappe (${TEST_VERSION})"
+fi
+
+## TODO Check docs generated properly
 
 
 ################################################################################
