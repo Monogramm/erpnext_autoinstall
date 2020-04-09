@@ -71,7 +71,8 @@ services:
       - FRAPPE_DEFAULT_SITE=${ERPNEXT_SITE}
       - FRAPPE_LOGGING=1
       - DEVELOPER_MODE=0
-      #- Amin user setup
+      - ALLOW_TESTS=1
+      # Admin user setup
       - ADMIN_PASSWORD=${ERPNEXT_ADMIN_PWD}
       - ENCRYPTION_KEY=${ERPNEXT_ENCRYPTION_KEY}
       # Database setup

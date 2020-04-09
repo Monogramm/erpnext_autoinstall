@@ -53,6 +53,12 @@ FRAPPE_APP_TO_TEST=erpnext_autoinstall
 
 echo "Preparing Frappe application '${FRAPPE_APP_TO_TEST}' tests..."
 
+bench set-config allow_tests true
+
+bench doctor
+bench enable-scheduler
+bench doctor
+
 ################################################################################
 # Frappe Unit tests
 # https://frappe.io/docs/user/en/guides/automated-testing/unit-testing
