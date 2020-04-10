@@ -1,7 +1,15 @@
 from __future__ import unicode_literals, absolute_import
+
+import sys
+
 import click
 import frappe
 from click import pass_context
+import getpass
+
+from frappe.utils.password import update_password
+
+
 
 
 def is_username_exists(username):
@@ -26,28 +34,46 @@ def is_role_exists(role):
 
 
 def wrapper_set_user_permissions(set_user_permissions):
-    def accept_argument(context, username=None, roles=None):
+    def accept_arguments(context, username=None, roles=None):
         connect_to_db(context)
         if not is_username_exists(username):
-            return
+            sys.exit()
 
         for role in roles:
             if not is_role_exists(role):
                 return
         set_user_permissions(username, roles)
 
-    return accept_argument
+    return accept_arguments
 
 
 def wrapper_list_users(list_users):
-    def accept_argument(context, username, email):
+    def accept_arguments(context, username, email):
         connect_to_db(context)
         if username is not None and not is_username_exists(username) or (email is not None and not is_email_exists(
                 email)):
             return
         list_users(username, email)
 
-    return accept_argument
+    return accept_arguments
+
+
+def wrapper_set_user_password(set_user_password):
+    def accept_arguments(context, username, password=None):
+        connect_to_db(context)
+        if not is_username_exists(username):
+            return
+        if password is None:
+            password = getpass.getpass('Please, enter new password for username {}: '.format(username))
+            confirmed_password = password = getpass.getpass('Confirm new password for username {}: '.format(username))
+            if password == confirmed_password:
+                set_user_password(username, password)
+            else:
+                print("Confirmed password is not valid")
+        else:
+            set_user_password(username, password)
+
+    return accept_arguments
 
 
 def connect_to_db(context):
@@ -79,4 +105,37 @@ def list_users(username=None, email=None):
         print(user.name)
 
 
-commands = [set_user_permissions, list_users]
+@click.command('set-user-password')
+@click.argument('username')
+@click.option('--password')
+@pass_context
+@wrapper_set_user_password
+def set_user_password(username, password):
+    update_password(username, password, logout_all_sessions=True)
+
+
+def wrapper_delete_user(delete_user):
+    def accept_arguments(context, username, force=False):
+        connect_to_db(context)
+        if not force:
+            ans = input('Are you sure you want to delete user {} (y/N): '.format(username))
+            if ans is None or ans == 'N' or ans == 'n':
+                return
+            if ans == 'y' or ans == 'Y':
+                delete_user(username)
+        else:
+            delete_user(username)
+
+    return accept_arguments
+
+
+@click.command('delete-user')
+@click.argument('username')
+@click.option('--force', is_flag=True)
+@pass_context
+@wrapper_delete_user
+def delete_user(username):
+    frappe.get_doc("User", {'username': username}).delete()
+
+
+commands = [set_user_permissions, list_users, set_user_password, delete_user]
