@@ -10,8 +10,6 @@ import getpass
 from frappe.utils.password import update_password
 
 
-
-
 def is_username_exists(username):
     if not frappe.db.exists('User', {'username': username}):
         print("Error: Username {} does not exist".format(username))
@@ -95,8 +93,8 @@ def set_user_permissions(username=None, roles=None):
 
 
 @click.command('list-users')
-@click.option('--username')
-@click.option('--email')
+@click.option('--username', help='name of user')
+@click.option('--email', help='email of user')
 @pass_context
 @wrapper_list_users
 def list_users(username=None, email=None):
@@ -107,7 +105,7 @@ def list_users(username=None, email=None):
 
 @click.command('set-user-password')
 @click.argument('username')
-@click.option('--password')
+@click.option('--password', help='set password')
 @pass_context
 @wrapper_set_user_password
 def set_user_password(username, password):
@@ -131,7 +129,7 @@ def wrapper_delete_user(delete_user):
 
 @click.command('delete-user')
 @click.argument('username')
-@click.option('--force', is_flag=True)
+@click.option('--force', is_flag=True, help='pass confirmation')
 @pass_context
 @wrapper_delete_user
 def delete_user(username):
