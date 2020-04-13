@@ -3,13 +3,12 @@ from __future__ import unicode_literals
 import unittest
 
 
-from click import get_current_context
-from erpnext_autoinstall.commands import connect_to_db_wrapper, list_users
+from erpnext_autoinstall.commands import _set_user_permissions
 
 
-class TestBench(unittest.TestCase):
-    def setUp(self):
-        self.context = get_current_context()
+class TestCommands(unittest.TestCase):
+    def test_set_user_permissions_admin(self):
+        _set_user_permissions('Administrator', 'System Manager')
 
-    def test_is_username_exists_wrapper(self):
-        list_users()
+    def test_set_user_permissions_none(self):
+        _set_user_permissions(None, 'System Manager')

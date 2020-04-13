@@ -166,11 +166,41 @@ fi
 
 ################################################################################
 ### Testing bench commands
-bench delete-user this_user_doesntexists
-STATUS_CODE=$?
-test $STATUS_CODE -eq 1 && echo "Test Passed" || exit 1
-bench create-user test_user test_user@mail.ru --firstname "Emil" --lastname "User"
-bench list-users
+
+if ! bench list-users | grep 'Administrator'; then
+    echo "bench list-users command did not return 'Administrator'"
+    exit 1
+fi
+
+if ! bench create-user 'test_user' 'test_user@mail.ru' --firstname 'Test' --lastname 'User'; then
+    echo "bench create-user command did not create user 'test_user'"
+    exit 1
+fi
+
+if ! bench list-users --email 'test_user@mail.ru' | grep 'test_user'; then
+    echo "bench list-users command did not return 'test_user'"
+    exit 1
+fi
+
+if bench list-users --username 'this_user_doesntexists' | grep 'test_user'; then
+    echo "bench list-users command returned 'test_user'"
+    exit 1
+fi
+
+if bench delete-user 'this_user_doesntexists'; then
+    echo "bench delete-user command did not fail on user 'this_user_doesntexists'"
+    exit 1
+fi
+
+if ! bench delete-user 'test_user'; then
+    echo "bench delete-user command failed on user 'test_user'"
+    exit 1
+fi
+
+if bench list-users --username 'test_user' --email 'test_user@mail.ru' | grep 'test_user'; then
+    echo "bench list-users command returned 'test_user'"
+    exit 1
+fi
 
 
 

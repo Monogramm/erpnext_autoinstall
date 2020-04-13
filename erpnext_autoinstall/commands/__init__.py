@@ -21,6 +21,11 @@ from frappe.utils.password import update_password
 # def set_user_role(username=None, roles=None):
 #
 
+def _set_user_permissions(username=None, roles=None):
+    if username is not None:
+        user = frappe.get_doc("User", {'username': username})
+        for role in roles:
+            user.add_roles(role)
 
 @click.command('set-user-permissions', help="Set permissions for user")
 @click.argument('username')
@@ -30,16 +35,11 @@ from frappe.utils.password import update_password
 @is_username_exists_wrapper
 @is_roles_exist_wrapper
 def set_user_permissions(username=None, roles=None):
-    if username is not None:
-        user = frappe.get_doc("User", {'username': username})
-        for role in roles:
-            user.add_roles(role)
-
+    _set_user_permissions(username, roles)
 
 @click.command('list-users', help="Show list of users")
 @click.option('--username', help='name of user')
 @click.option('--email', help='email of user')
-@click.option('--app')
 @pass_context
 @connect_to_db_wrapper
 def list_users(username=None, email=None, app=None):
