@@ -9,7 +9,17 @@ import getpass
 
 from erpnext_autoinstall.commands.wrappers import connect_to_db_wrapper, is_email_exists_wrapper, \
     is_username_exists_wrapper, is_roles_exist_wrapper
+from frappe.client import insert
+from frappe.model.db_schema import DbManager
 from frappe.utils.password import update_password
+
+
+# @click.command('set-user-role')
+# @click.argument('username')
+# @click.argument('role')
+# @pass_context
+# def set_user_role(username=None, roles=None):
+#
 
 
 @click.command('set-user-permissions', help="Set permissions for user")
@@ -29,9 +39,10 @@ def set_user_permissions(username=None, roles=None):
 @click.command('list-users', help="Show list of users")
 @click.option('--username', help='name of user')
 @click.option('--email', help='email of user')
+@click.option('--app')
 @pass_context
 @connect_to_db_wrapper
-def list_users(username=None, email=None):
+def list_users(username=None, email=None, app=None):
     """
     Show list of users
     """
@@ -75,4 +86,21 @@ def delete_user(username, force=False):
         frappe.get_doc("User", {'username': username}).delete()
 
 
-commands = [set_user_permissions, list_users, set_user_password, delete_user]
+@click.command('create-user', help='Create new user')
+@click.argument('username')
+@click.argument('email')
+@click.option('--firstname')
+@click.option('--lastname')
+@pass_context
+@connect_to_db_wrapper
+def create_user(username, email, firstname=None, lastname=None):
+    if not firstname:
+        firstname = input("First name: ")
+    if not lastname:
+        lastname = input("Last name: ")
+    frappe.get_doc(
+        {"doctype": "User", 'name': username, "email": email, "first_name": firstname, "last_name": lastname,
+         "enabled": 0}).insert()
+
+
+commands = [set_user_permissions, list_users, set_user_password, delete_user, create_user]
