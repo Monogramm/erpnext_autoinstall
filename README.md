@@ -78,6 +78,13 @@ Environment variables **not ready yet**:
     -   `EMAIL_ACCOUNT_ADDRESS_ACCOUNT`
     -   `EMAIL_ACCOUNT_PASSWORD`
 
+Custom bench commands:
+* `bench list-users` - Show list of users
+* `bench set-user-permissions` - Set permissions for user
+* `bench set-user-password` - Update user password
+* `delete-user` - Delete user from database
+* `create-user` - Create new user
+
 ## :white_check_mark: Run tests
 
 ```sh
