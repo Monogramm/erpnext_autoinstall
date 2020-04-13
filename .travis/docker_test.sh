@@ -165,6 +165,16 @@ fi
 
 
 ################################################################################
+### Testing bench commands
+bench delete-user this_user_doesntexists
+STATUS_CODE=$?
+test $STATUS_CODE -eq 1 && echo "Test Passed" || exit 1
+bench create-user test_user test_user@mail.ru --firstname "Emil" --lastname "User"
+bench list-users
+
+
+
+
 # Success
 echo 'Frappe app '${FRAPPE_APP_TO_TEST}' tests finished'
 echo 'Check the CI reports and logs for details.'
