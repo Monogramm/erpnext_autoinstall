@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 import unittest
 
-import os
 
 from click import get_current_context
 from erpnext_autoinstall.commands import connect_to_db_wrapper, list_users

@@ -12,7 +12,7 @@ from erpnext_autoinstall.commands.wrappers import connect_to_db_wrapper, is_emai
 from frappe.utils.password import update_password
 
 
-@click.command('set-user-permissions')
+@click.command('set-user-permissions', help="Set permissions for user")
 @click.argument('username')
 @click.argument('roles', nargs=-1)
 @pass_context
@@ -26,20 +26,23 @@ def set_user_permissions(username=None, roles=None):
             user.add_roles(role)
 
 
-@click.command('list-users')
+@click.command('list-users', help="Show list of users")
 @click.option('--username', help='name of user')
 @click.option('--email', help='email of user')
 @pass_context
 @connect_to_db_wrapper
 def list_users(username=None, email=None):
+    """
+    Show list of users
+    """
     users = frappe.get_all("User", filters=[{'username': username}, {'email': email}])
     for user in users:
         print(user.name)
 
 
-@click.command('set-user-password')
+@click.command('set-user-password', help='Update user password')
 @click.argument('username')
-@click.option('--password', help='set password')
+@click.option('--password', help='Set password')
 @pass_context
 @connect_to_db_wrapper
 @is_username_exists_wrapper
@@ -55,9 +58,9 @@ def set_user_password(username, password):
         update_password(username, password, logout_all_sessions=True)
 
 
-@click.command('delete-user')
+@click.command('delete-user', help='Delete user from database')
 @click.argument('username')
-@click.option('--force', is_flag=True, help='pass confirmation')
+@click.option('--force', is_flag=True, help='Pass confirmation')
 @pass_context
 @connect_to_db_wrapper
 @is_username_exists_wrapper
