@@ -71,6 +71,13 @@ script:
   - docker-compose -f docker-compose.${DATABASE}.yml ps "sut" | grep "Exit 0"
 
 after_script:
+  - cd '/home/frappe/frappe-bench/'
+  # Testing bench commands
+  - bench delete-user this_user_doesntexists
+  - STATUS_CODE=$?
+  - test $STATUS_CODE -eq 1 && echo "Test Passed" || exit 1
+  - bench create-user test_user test_user@mail.ru --firstname "Emil" --lastname "User"
+  - bench list-users
   - echo "Changing to project directory ($home)"
   - cd "$home"
   - sudo pip install coverage==4.5.4
@@ -87,6 +94,7 @@ after_script:
   - test -z "$CODACY_PROJECT_TOKEN" || bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Python -r "./coverage.xml"
   # Publish coverage to Codecov
   - test -z "$CODECOV_TOKEN" || bash <(curl -s https://codecov.io/bash)
+  -
 
 notifications:
   email: false
