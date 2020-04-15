@@ -7,27 +7,26 @@ import frappe
 from click import pass_context
 import getpass
 
-from erpnext_autoinstall.commands.wrappers import connect_to_db_wrapper, is_email_exists_wrapper, \
-    is_username_exists_wrapper, is_roles_exist_wrapper
-from frappe.client import insert
-from frappe.model.db_schema import DbManager
+from erpnext_autoinstall.commands.wrappers import connect_to_db, email_exists, \
+    username_exists, roles_exist, role_profile_exists
 from frappe.utils.password import update_password
 
 
-# @click.command('set-user-role')
-# @click.argument('username')
-# @click.argument('role')
-# @pass_context
-# def set_user_role(username=None, roles=None):
-#
-
-def _set_user_permissions(username=None, roles=None):
+def _set_user_permissions(username=None, permissions=None):
     if username is not None:
         user = frappe.get_doc("User", {'username': username})
-        for role in roles:
+        for role in permissions:
             user.add_roles(role)
     else:
         frappe.throw("Set the user name")
+
+
+def _set_user_role(username, role):
+    if username is not None:
+        user = frappe.get_doc("User", {'name': username})
+        user.role_profile_name = role
+        print(user.role_profile_name)
+        user.save()
 
 
 def _create_user(username, email, firstname, lastname):
@@ -50,18 +49,29 @@ def _list_users(username, email=None):
 @click.argument('username')
 @click.argument('roles', nargs=-1)
 @pass_context
-@connect_to_db_wrapper
-@is_username_exists_wrapper
-@is_roles_exist_wrapper
+@connect_to_db
+@username_exists
+@roles_exist
 def set_user_permissions(username=None, roles=None):
     _set_user_permissions(username, roles)
+
+
+@click.command('set-user-role', help="Set user role")
+@click.argument("username")
+@click.argument('role')
+@pass_context
+@connect_to_db
+@role_profile_exists
+@username_exists
+def set_user_role(username, role):
+    _set_user_role(username, role)
 
 
 @click.command('list-users', help="Show list of users")
 @click.option('--username', help='name of user')
 @click.option('--email', help='email of user')
 @pass_context
-@connect_to_db_wrapper
+@connect_to_db
 def list_users(username=None, email=None):
     """
     Show list of users
@@ -96,8 +106,8 @@ def _delete_user(username, force):
 @click.argument('username')
 @click.option('--password', help='Set password')
 @pass_context
-@connect_to_db_wrapper
-@is_username_exists_wrapper
+@connect_to_db
+@username_exists
 def set_user_password(username, password):
     _set_user_password(username, password)
 
@@ -106,8 +116,8 @@ def set_user_password(username, password):
 @click.argument('username')
 @click.option('--force', is_flag=True, help='Pass confirmation')
 @pass_context
-@connect_to_db_wrapper
-@is_username_exists_wrapper
+@connect_to_db
+@username_exists
 def delete_user(username, force=False):
     _delete_user(username, force)
 
@@ -118,9 +128,9 @@ def delete_user(username, force=False):
 @click.option('--firstname', help="First name")
 @click.option('--lastname', help="Last name")
 @pass_context
-@connect_to_db_wrapper
+@connect_to_db
 def create_user(username, email, firstname=None, lastname=None):
     _create_user(username, email, firstname, lastname)
 
 
-commands = [set_user_permissions, list_users, set_user_password, delete_user, create_user]
+commands = [set_user_permissions, list_users, set_user_password, delete_user, create_user, set_user_role]
