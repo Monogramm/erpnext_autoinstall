@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 import unittest
 
 import frappe
-from erpnext_autoinstall.commands import _set_user_permissions, _create_user, _list_users, _delete_user, \
-    _set_user_password, _set_user_role, delete_user
+from erpnext_autoinstall.commands import _set_user_permissions, _create_user, _list_users, \
+    _set_user_password, _set_user_role
 
 
 def get_hash_password_from_user(usr, data):
@@ -26,6 +26,7 @@ class TestCommands(unittest.TestCase):
 
     def test_set_user_permissions_admin(self):
         _set_user_permissions('Administrator', ('System Manager',))
+        self.assertIn("System Manager", frappe.get_roles("Administrator"))
 
     def test_set_user_permissions_none(self):
         self.assertRaises(frappe.ValidationError, _set_user_permissions, None, 'System Manager')
