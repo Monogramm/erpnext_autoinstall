@@ -10,6 +10,7 @@ import getpass
 from erpnext_autoinstall.commands.wrappers import connect_to_db, email_exists, \
     username_exists, roles_exist, role_profile_exists
 from frappe.utils.password import update_password
+from frappe.utils.user import add_system_manager
 
 
 def _set_user_permissions(username=None, permissions=None):
@@ -23,9 +24,8 @@ def _set_user_permissions(username=None, permissions=None):
 
 def _set_user_role(username, role):
     if username is not None:
-        user = frappe.get_doc("User", {'name': username})
+        user = frappe.get_doc("User", {'username': username})
         user.role_profile_name = role
-        print(user.role_profile_name)
         user.save()
 
 
@@ -34,9 +34,11 @@ def _create_user(username, email, firstname, lastname):
         firstname = input("First name: ")
     if not lastname:
         lastname = input("Last name: ")
-    frappe.get_doc(
-        {"doctype": "User", 'name': username, "email": email, "first_name": firstname, "last_name": lastname,
-         "enabled": 0, "send_welcome_email": 0}).insert()
+
+    user_doc = frappe.get_doc(
+        {"doctype": "User", 'username': username, "email": email, "first_name": firstname, "last_name": lastname,
+         "enabled": 1, "send_welcome_email": 0})
+    user_doc.insert()
 
 
 def _list_users(username, email=None):
@@ -99,6 +101,7 @@ def _delete_user(username, force):
         if ans == 'y' or ans == 'Y':
             frappe.get_doc("User", {'username': username}).delete()
     else:
+        print(username)
         frappe.get_doc("User", {'username': username}).delete()
 
 
@@ -117,7 +120,6 @@ def set_user_password(username, password):
 @click.option('--force', is_flag=True, help='Pass confirmation')
 @pass_context
 @connect_to_db
-@username_exists
 def delete_user(username, force=False):
     _delete_user(username, force)
 

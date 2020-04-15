@@ -15,7 +15,7 @@ def connect_to_db(f):
 
 def email_exists(f):
     def accept_arguments(**kwargs):
-        if not frappe.get_all("User", filters={'email': kwargs['email']}):
+        if not frappe.get_all("User", filters=[{'email': kwargs['email']}]):
             print("Error: Email {} does not exist".format(kwargs['email']))
             sys.exit(1)
         f(**kwargs)
