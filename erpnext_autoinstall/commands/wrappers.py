@@ -4,40 +4,49 @@ import frappe
 
 
 def connect_to_db_wrapper(f):
-    def accept_arguments(context, **args):
+    def accept_arguments(context, **kwargs):
         site = context.obj['sites'][0]
         frappe.init(site=site)
         frappe.connect(site)
-        f(**args)
+        f(**kwargs)
 
     return accept_arguments
 
 
 def is_email_exists_wrapper(f):
-    def accept_arguments(**args):
-        if not frappe.db.exists('User', args['email']):
-            print("Error: Email {} does not exist".format(args['email']))
+    def accept_arguments(kwargs):
+        if not frappe.get_all("User", filters={'email': kwargs['email']}):
+            print("Error: Email {} does not exist".format(kwargs['email']))
             sys.exit(1)
-        f(**args)
+        f(kwargs)
 
     return accept_arguments
 
 
 def is_username_exists_wrapper(f):
-    def accept_arguments(**args):
-        if not frappe.db.exists('User', {'username': args['username']}):
-            print("Error: Username {} does not exist".format(args['username']))
+    def accept_arguments(kwargs):
+        if not frappe.db.exists('User', {'username': kwargs['username']}):
+            print("Error: Username {} does not exist".format(kwargs['username']))
             sys.exit(1)
-        f(**args)
+        f(kwargs)
 
     return accept_arguments
 
 
 def is_roles_exist_wrapper(f):
-    def accept_arguments(**args):
-        for role in args['roles']:
+    def accept_arguments(kwargs):
+        for role in kwargs['roles']:
             if not frappe.db.exists('Role', role):
                 print("Error: Role {} does not exist".format(role))
                 sys.exit(1)
 
     return accept_arguments
+
+
+@is_email_exists_wrapper
+@is_username_exists_wrapper
+@is_roles_exist_wrapper
+def _checker(username, email, roles):
+    print("Username {} ".format(username))
+    print("Email {}".format(email))
+    print("Roles {}".format(roles))
