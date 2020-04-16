@@ -121,6 +121,7 @@ def set_user_password(username, password):
 @click.option('--force', is_flag=True, help='Pass confirmation')
 @pass_context
 @connect_to_db
+@username_exists
 def delete_user(username, force=False):
     _delete_user(username, force)
 
