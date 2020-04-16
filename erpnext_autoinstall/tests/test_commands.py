@@ -4,7 +4,7 @@ import unittest
 
 import frappe
 from erpnext_autoinstall.commands import _set_user_permissions, _create_user, _list_users, \
-    _set_user_password, _set_user_role
+    _set_user_password, _set_user_role, _delete_user
 
 
 def get_hash_password_from_user(usr, data):
@@ -35,8 +35,8 @@ class TestCommands(unittest.TestCase):
         if not frappe.db.exists("User", "test_creation@mail.ru"):
             _create_user('test_creation', "test_creation@mail.ru", 'Test', 'User')
         self.assertIsNotNone(frappe.get_doc("User", "test_creation@mail.ru"))
-        #_delete_user('test_creation', True) #TODO: doesn't work without first run wizard
-        #self.assertIsNone(frappe.db.exists("User", "test_creation@mail.ru"))
+        _delete_user('test_creation', True)
+        self.assertIsNone(frappe.db.exists("User", "test_creation@mail.ru"))
 
     def test_list_users(self):
         _list_users('Administrator')

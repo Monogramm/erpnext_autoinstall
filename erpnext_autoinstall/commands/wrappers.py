@@ -14,6 +14,10 @@ def connect_to_db(f):
 
 
 def email_exists(f):
+    """
+    Wrapper on function f. This function check, that email exists.
+    If not exit with  code 1
+    """
     def accept_arguments(**kwargs):
         if not frappe.get_all("User", filters=[{'email': kwargs['email']}]):
             print("Error: Email {} does not exist".format(kwargs['email']))
@@ -24,6 +28,10 @@ def email_exists(f):
 
 
 def username_exists(f):
+    """
+        Wrapper on function f. This function check, that username exists.
+        If not exit with  code 1
+    """
     def accept_arguments(**kwargs):
         if not frappe.db.exists('User', {'username': kwargs['username']}):
             print("Error: Username {} does not exist".format(kwargs['username']))
@@ -34,6 +42,10 @@ def username_exists(f):
 
 
 def roles_exist(f):
+    """
+        Wrapper on function f. This function check, that roles exists.
+        If not exit with code 1
+    """
     def accept_arguments(**kwargs):
         for role in kwargs['roles']:
             if not frappe.db.exists('Role', role):
@@ -44,6 +56,10 @@ def roles_exist(f):
 
 
 def role_profile_exists(f):
+    """
+        Wrapper on function f. This function check, that role profile exists.
+        If not exit with  code 1
+        """
     def accept_arguments(**kwargs):
         if not frappe.db.exists("Role Profile", kwargs['role']):
             print("Error: Role {} does not exist".format(kwargs['role']))

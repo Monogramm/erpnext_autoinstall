@@ -36,7 +36,8 @@ def _create_user(username, email, firstname, lastname):
         lastname = input("Last name: ")
 
     user_doc = frappe.get_doc(
-        {"doctype": "User", 'username': username, "email": email, "first_name": firstname, "last_name": lastname,
+        {"doctype": "User", 'username': username, "email": email,
+         "first_name": firstname, "last_name": lastname,
          "enabled": 1, "send_welcome_email": 0})
     user_doc.insert()
     frappe.db.commit()
@@ -76,16 +77,16 @@ def set_user_role(username, role):
 @pass_context
 @connect_to_db
 def list_users(username=None, email=None):
-    """
-    Show list of users
-    """
+    """Show list of users"""
     _list_users(username, email)
 
 
 def _set_user_password(username, password):
     if password is None:
-        password = getpass.getpass('Please, enter new password for username {}: '.format(username))
-        confirmed_password = getpass.getpass('Confirm new password for username {}: '.format(username))
+        password = getpass.getpass('Please, enter new password for username {}: '
+                                   .format(username))
+        confirmed_password = getpass.getpass('Confirm new password for username {}: '
+                                             .format(username))
         if password == confirmed_password:
             update_password(username, password, logout_all_sessions=True)
         else:
@@ -97,9 +98,9 @@ def _set_user_password(username, password):
 def _delete_user(username, force):
     if not force:
         ans = input('Are you sure you want to delete user {} (y/N): '.format(username))
-        if ans is None or ans == 'N' or ans == 'n':
+        if ans in ('N', 'n'):
             return
-        if ans == 'y' or ans == 'Y':
+        if ans in ('y', 'Y'):
             frappe.get_doc("User", {'username': username}).delete()
     else:
         frappe.get_doc("User", {'username': username}).delete()
@@ -137,4 +138,5 @@ def create_user(username, email, firstname=None, lastname=None):
     _create_user(username, email, firstname, lastname)
 
 
-commands = [set_user_permissions, list_users, set_user_password, delete_user, create_user, set_user_role]
+commands = [set_user_permissions,
+            list_users, set_user_password, delete_user, create_user, set_user_role]
