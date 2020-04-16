@@ -67,7 +67,9 @@ FRAPPE_APP_UNIT_TEST_REPORT="$(pwd)/sites/.${FRAPPE_APP_TO_TEST}_unit_tests.xml"
 FRAPPE_APP_UNIT_TEST_PROFILE="$(pwd)/sites/.${FRAPPE_APP_TO_TEST}_unit_tests.prof"
 
 echo "Creating system manager for test..."
-bench add-system-manager "system_manager@example.com"
+if ! bench list-users | grep 'system_manager@example.com'; then
+    bench add-system-manager "system_manager@example.com"
+fi
 
 #bench run-tests --help
 echo "Executing Unit Tests of '${FRAPPE_APP_TO_TEST}' app..."

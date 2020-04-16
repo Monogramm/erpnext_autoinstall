@@ -15,6 +15,7 @@ def _set_user_permissions(username=None, permissions=None):
         user = frappe.get_doc("User", {'username': username})
         for role in permissions:
             user.add_roles(role)
+        frappe.db.commit()
     else:
         frappe.throw("Set the user name")
 
@@ -24,6 +25,7 @@ def _set_user_role(username, role):
         user = frappe.get_doc("User", {'username': username})
         user.role_profile_name = role
         user.save()
+        frappe.db.commit()
 
 
 def _create_user(username, email, firstname, lastname):
