@@ -192,7 +192,7 @@ if bench delete-user 'this_user_doesntexists'; then
     exit 1
 fi
 
-if ! bench delete-user 'test_user'; then
+if ! bench delete-user 'test_user' --force; then
     echo "bench delete-user command failed on user 'test_user'"
     exit 1
 fi

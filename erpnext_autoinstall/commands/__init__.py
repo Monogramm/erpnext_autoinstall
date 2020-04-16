@@ -102,7 +102,6 @@ def _delete_user(username, force):
         if ans == 'y' or ans == 'Y':
             frappe.get_doc("User", {'username': username}).delete()
     else:
-        print(username)
         frappe.get_doc("User", {'username': username}).delete()
     frappe.db.commit()
 
