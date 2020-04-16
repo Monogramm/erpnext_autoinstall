@@ -39,6 +39,7 @@ def _create_user(username, email, firstname, lastname):
         {"doctype": "User", 'username': username, "email": email, "first_name": firstname, "last_name": lastname,
          "enabled": 1, "send_welcome_email": 0})
     user_doc.insert()
+    frappe.db.commit()
 
 
 def _list_users(username, email=None):
@@ -103,6 +104,7 @@ def _delete_user(username, force):
     else:
         print(username)
         frappe.get_doc("User", {'username': username}).delete()
+    frappe.db.commit()
 
 
 @click.command('set-user-password', help='Update user password')
