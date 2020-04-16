@@ -66,7 +66,7 @@ bench doctor
 FRAPPE_APP_UNIT_TEST_REPORT="$(pwd)/sites/.${FRAPPE_APP_TO_TEST}_unit_tests.xml"
 FRAPPE_APP_UNIT_TEST_PROFILE="$(pwd)/sites/.${FRAPPE_APP_TO_TEST}_unit_tests.prof"
 
-
+echo "Creating system manager for test..."
 bench add-system-manager "${SYSTEM_MANAGER_EMAIL}"
 
 #bench run-tests --help

@@ -1,13 +1,11 @@
 from __future__ import unicode_literals, absolute_import
 
-import sys
-
 import click
 import frappe
 from click import pass_context
 import getpass
 
-from erpnext_autoinstall.commands.wrappers import connect_to_db, email_exists, \
+from erpnext_autoinstall.commands.wrappers import connect_to_db, \
     username_exists, roles_exist, role_profile_exists
 from frappe.utils.password import update_password
 
@@ -42,10 +40,11 @@ def _create_user(username, email, firstname, lastname):
     frappe.db.commit()
 
 
-def _list_users(username, email=None):
+def _list_users(username=None, email=None):
     users = frappe.get_all("User", filters=[{'username': username}, {'email': email}])
     for user in users:
         print(user.name)
+    return users
 
 
 @click.command('set-user-permissions', help="Set permissions for user")
@@ -76,7 +75,7 @@ def set_user_role(username, role):
 @pass_context
 @connect_to_db
 def list_users(username=None, email=None):
-    """Show list of users"""
+    """Show list of users."""
     _list_users(username, email)
 
 

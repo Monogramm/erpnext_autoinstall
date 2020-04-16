@@ -49,6 +49,7 @@ def roles_exist(f):
     def accept_arguments(**kwargs):
         for role in kwargs['roles']:
             if not frappe.db.exists('Role', role):
+                print(frappe.get_all("Role"))
                 print("Error: Permission {} does not exist".format(role))
                 sys.exit(1)
         f(**kwargs)

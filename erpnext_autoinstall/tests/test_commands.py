@@ -39,7 +39,7 @@ class TestCommands(unittest.TestCase):
         self.assertIsNone(frappe.db.exists("User", "test_creation@mail.ru"))
 
     def test_list_users(self):
-        _list_users('Administrator')
+        self.assertEqual(len(frappe.get_all("User")), len(_list_users()))
 
     def test_set_user_password(self):
         _set_user_password("test", "raw_password")
@@ -60,7 +60,7 @@ class TestCommands(unittest.TestCase):
 
         # add role
         new_role_profile.append("roles", {
-            "role": 'Auditor'
+            "role": 'Translator'
         })
         new_role_profile.save()
         _set_user_role("test", "Test 1")
