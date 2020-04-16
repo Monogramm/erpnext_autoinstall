@@ -10,7 +10,6 @@ import getpass
 from erpnext_autoinstall.commands.wrappers import connect_to_db, email_exists, \
     username_exists, roles_exist, role_profile_exists
 from frappe.utils.password import update_password
-from frappe.utils.user import add_system_manager
 
 
 def _set_user_permissions(username=None, permissions=None):
@@ -101,9 +100,10 @@ def _delete_user(username, force):
         if ans in ('N', 'n'):
             return
         if ans in ('y', 'Y'):
-            frappe.get_doc("User", {'username': username}).delete()
+            user = frappe.get_doc("User", {'username': username})
     else:
-        frappe.get_doc("User", {'username': username}).delete()
+        user = frappe.get_doc("User", {'username': username})
+    user.delete()
     frappe.db.commit()
 
 
