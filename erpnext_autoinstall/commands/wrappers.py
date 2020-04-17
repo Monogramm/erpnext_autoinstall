@@ -63,7 +63,7 @@ def role_profile_exists(f):
     """
         Wrapper on function f. This function check, that role profile exists.
         If not exit with  code 1
-        """
+    """
     def accept_arguments(**kwargs):
         if not frappe.db.exists("Role Profile", kwargs['role']):
             print("Error: Role {} does not exist".format(kwargs['role']))

@@ -38,9 +38,6 @@ class TestCommands(unittest.TestCase):
         _delete_user('test_creation', True)
         self.assertIsNone(frappe.db.exists("User", "test_creation@mail.ru"))
 
-    def test_list_users(self):
-        self.assertEqual(len(frappe.get_all("User")), len(_list_users()))
-
     def test_set_user_password(self):
         _set_user_password("test", "raw_password")
         data = frappe.db.sql("""SELECT name, password FROM `__Auth`""")

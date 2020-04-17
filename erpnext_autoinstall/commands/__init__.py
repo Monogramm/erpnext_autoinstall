@@ -1,3 +1,7 @@
+"""
+Custom bench commands.
+Full documentation you can check in repository.
+"""
 from __future__ import unicode_literals, absolute_import
 
 import click
