@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import unittest
 import frappe
 
-from erpnext_autoinstall.commands.wrappers import email_exists
+from erpnext_autoinstall.commands.wrappers import email_exists,  username_exists, roles_exist
 
 
 @email_exists
