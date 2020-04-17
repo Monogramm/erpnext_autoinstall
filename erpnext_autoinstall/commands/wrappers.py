@@ -1,9 +1,17 @@
+# -*- coding: utf-8 -*-
+# Copyright (c) 2020, Monogramm and Contributors
+# See license.txt
+
 import sys
 
 import frappe
 
 
 def connect_to_db(f):
+    """Connection to database wrapper.
+
+    This function opens database connection, execute function then destroy
+    connection."""
     def accept_arguments(context, **kwargs):
         site = context.obj['sites'][0]
         frappe.init(site=site)
@@ -17,7 +25,7 @@ def connect_to_db(f):
 
 
 def email_exists(f):
-    """Wrapper on function f. This function check, that email exists."""
+    """Wrapper to check user with email exists."""
     def accept_arguments(**kwargs):
         if not frappe.get_all("User", filters=[{'email': kwargs['email']}]):
             print("Error: Email {} does not exist".format(kwargs['email']))
@@ -28,7 +36,7 @@ def email_exists(f):
 
 
 def username_exists(f):
-    """Wrapper on function f. This function check, that username exists."""
+    """Wrapper to check user with username exists."""
     def accept_arguments(**kwargs):
         if not frappe.db.exists('User', {'username': kwargs['username']}):
             print("Error: Username {} does not exist".format(
@@ -40,7 +48,7 @@ def username_exists(f):
 
 
 def roles_exist(f):
-    """Wrapper on function f. This function check, that roles exists."""
+    """Wrapper to check role exists."""
     def accept_arguments(**kwargs):
         for role in kwargs['roles']:
             if not frappe.db.exists('Role', role):
@@ -52,10 +60,11 @@ def roles_exist(f):
 
 
 def role_profile_exists(f):
-    """Wrapper on function f. This function check, that role profile exists."""
+    """Wrapper to check role profile exists."""
     def accept_arguments(**kwargs):
         if not frappe.db.exists("Role Profile", kwargs['role_profile']):
-            print("Error: Role {} does not exist".format(kwargs['role_profile']))
+            print("Error: Role {} does not exist".format(
+                kwargs['role_profile']))
             sys.exit(1)
         f(**kwargs)
 
