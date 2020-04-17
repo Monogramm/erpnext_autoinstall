@@ -8,7 +8,10 @@ def connect_to_db(f):
         site = context.obj['sites'][0]
         frappe.init(site=site)
         frappe.connect(site)
-        f(**kwargs)
+        try:
+            f(**kwargs)
+        finally:
+            frappe.destroy()
 
     return accept_arguments
 

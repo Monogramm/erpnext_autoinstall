@@ -13,12 +13,9 @@ from frappe.utils.password import update_password
 def _set_user_permissions(username=None, permissions=None):
     if username is not None:
         user = frappe.get_doc("User", {'username': username})
-        try:
-            for role in permissions:
-                user.add_roles(role)
-            frappe.db.commit()
-        finally:
-            frappe.destroy()
+        for role in permissions:
+            user.add_roles(role)
+        frappe.db.commit()
     else:
         frappe.throw("Set the user name")
 
@@ -27,11 +24,8 @@ def _set_user_role(username, role):
     if username is not None:
         user = frappe.get_doc("User", {'username': username})
         user.role_profile_name = role
-        try:
-            user.save()
-            frappe.db.commit()
-        finally:
-            frappe.destroy()
+        user.save()
+        frappe.db.commit()
 
 
 def _create_user(username, email, firstname, lastname):
@@ -44,11 +38,8 @@ def _create_user(username, email, firstname, lastname):
         {"doctype": "User", 'username': username, "email": email,
          "first_name": firstname, "last_name": lastname,
          "enabled": 1, "send_welcome_email": 0})
-    try:
-        user_doc.insert()
-        frappe.db.commit()
-    finally:
-        frappe.destroy()
+    user_doc.insert()
+    frappe.db.commit()
 
 
 def _list_users(username=None, email=None):
@@ -97,19 +88,13 @@ def _set_user_password(username, password):
         confirmed_password = getpass.getpass('Confirm new password for username {}: '
                                              .format(username))
         if password == confirmed_password:
-            try:
                 update_password(username, password, logout_all_sessions=True)
                 frappe.db.commit()
-            finally:
-                frappe.destroy()
         else:
             print("Confirmed password is not valid")
     else:
-        try:
-            update_password(username, password, logout_all_sessions=True)
-            frappe.db.commit()
-        finally:
-            frappe.destroy()
+        update_password(username, password, logout_all_sessions=True)
+        frappe.db.commit()
 
 
 def _delete_user(username, force):
@@ -121,11 +106,8 @@ def _delete_user(username, force):
             user = frappe.get_doc("User", {'username': username})
     else:
         user = frappe.get_doc("User", {'username': username})
-    try:
-        user.delete()
-        frappe.db.commit()
-    finally:
-        frappe.destroy()
+    user.delete()
+    frappe.db.commit()
 
 
 @click.command('set-user-password', help='Update user password')
