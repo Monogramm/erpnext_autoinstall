@@ -47,7 +47,12 @@ def _create_user(username, email, firstname, lastname):
 
 
 def _list_users(username=None, email=None):
-    users = frappe.get_all("User", filters=[{'username': username}, {'email': email}])
+    if username is None and email is None:
+        users = frappe.get_all("User")
+    if username is not None:
+        users = frappe.get_all("User", filters=[{'username': username}])
+    if email is not None:
+        users = frappe.get_all("User", filters=[{'email': email}])
     for user in users:
         print(user.name)
     return users
