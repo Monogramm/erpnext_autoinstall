@@ -79,11 +79,12 @@ Environment variables **not ready yet**:
     -   `EMAIL_ACCOUNT_PASSWORD`
 
 Custom bench commands:
--   `bench list-users` Show list of users
--   `bench set-user-permissions` Set permissions for user
--   `bench set-user-password` Update user password
--   `delete-user` Delete user from database
--   `create-user` Create new user
+-   `bench list-users`: Show list of users
+-   `bench add-user`: Create new user
+-   `bench delete-user`: Delete user from database
+-   `bench set-user-password`: Update user password
+-   `bench set-user-roles`: Set roles for user
+-   `bench set-user-role-profile`: Set role profile for user
 
 ## :white_check_mark: Run tests
 

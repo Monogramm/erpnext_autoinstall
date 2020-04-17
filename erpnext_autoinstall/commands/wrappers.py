@@ -31,7 +31,8 @@ def username_exists(f):
     """Wrapper on function f. This function check, that username exists."""
     def accept_arguments(**kwargs):
         if not frappe.db.exists('User', {'username': kwargs['username']}):
-            print("Error: Username {} does not exist".format(kwargs['username']))
+            print("Error: Username {} does not exist".format(
+                kwargs['username']))
             sys.exit(1)
         f(**kwargs)
 
@@ -53,8 +54,8 @@ def roles_exist(f):
 def role_profile_exists(f):
     """Wrapper on function f. This function check, that role profile exists."""
     def accept_arguments(**kwargs):
-        if not frappe.db.exists("Role Profile", kwargs['role']):
-            print("Error: Role {} does not exist".format(kwargs['role']))
+        if not frappe.db.exists("Role Profile", kwargs['role_profile']):
+            print("Error: Role {} does not exist".format(kwargs['role_profile']))
             sys.exit(1)
         f(**kwargs)
 
