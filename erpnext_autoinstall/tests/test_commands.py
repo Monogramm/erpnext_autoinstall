@@ -60,7 +60,7 @@ class TestCommands(unittest.TestCase):
 
         # add role
         new_role_profile.append("roles", {
-            "role": 'Translator'
+            "role": 'System Manager'
         })
         new_role_profile.save()
         _set_user_role("test", "Test 1")
