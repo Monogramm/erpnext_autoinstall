@@ -176,8 +176,8 @@ if ! bench list-users | grep 'Administrator'; then
     exit 1
 fi
 
-if ! bench create-user 'test_user' 'test_user@mail.ru' --firstname 'Test' --lastname 'User'; then
-    echo "bench create-user command did not create user 'test_user'"
+if ! bench add-user 'test_user' 'test_user@mail.ru' --firstname 'Test' --lastname 'User'; then
+    echo "bench add-user command did not create user 'test_user'"
     exit 1
 fi
 

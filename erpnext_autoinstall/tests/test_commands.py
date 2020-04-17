@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import unittest
 
 import frappe
-from erpnext_autoinstall.commands import _set_user_permissions, _create_user, _list_users, \
+from erpnext_autoinstall.commands import _set_user_permissions, _create_user, \
     _set_user_password, _set_user_role, _delete_user
 
 
