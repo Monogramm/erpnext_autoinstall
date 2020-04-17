@@ -1,9 +1,19 @@
 from __future__ import unicode_literals
 
 import unittest
-
 import frappe
-from erpnext_autoinstall.commands.wrappers import email_exists, _checker
+
+from erpnext_autoinstall.commands.wrappers import email_exists
+
+
+@email_exists
+@username_exists
+@roles_exist
+def _checker(username, email, roles):
+    print("Username {} ".format(username))
+    print("Email {}".format(email))
+    print("Roles {}".format(roles))
+    return username, email, roles
 
 
 class TestWrappers(unittest.TestCase):

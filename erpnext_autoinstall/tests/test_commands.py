@@ -1,9 +1,9 @@
 from __future__ import unicode_literals
 
 import unittest
-
 import frappe
-from erpnext_autoinstall.commands import _set_user_permissions, _create_user, \
+
+from erpnext_autoinstall.commands import _set_user_permissions, _add_user, \
     _set_user_password, _set_user_role, _delete_user
 
 
@@ -22,7 +22,7 @@ class TestCommands(unittest.TestCase):
         self.test_user_email = 'test@mail.ru'
         self.test_user_name = 'test'
         if not frappe.db.exists("User", self.test_user_email):
-            _create_user("test", self.test_user_email, "Test", "User")
+            _add_user("test", self.test_user_email, "Test", "User")
 
     def test_set_user_permissions_admin(self):
         _set_user_permissions('Administrator', ('System Manager',))
@@ -33,7 +33,7 @@ class TestCommands(unittest.TestCase):
 
     def test_create_delete_user_is_exists(self):
         if not frappe.db.exists("User", "test_creation@mail.ru"):
-            _create_user('test_creation', "test_creation@mail.ru", 'Test', 'User')
+            _add_user('test_creation', "test_creation@mail.ru", 'Test', 'User')
         self.assertIsNotNone(frappe.get_doc("User", "test_creation@mail.ru"))
         _delete_user('test_creation', True)
         self.assertIsNone(frappe.db.exists("User", "test_creation@mail.ru"))

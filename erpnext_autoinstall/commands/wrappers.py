@@ -59,13 +59,3 @@ def role_profile_exists(f):
         f(**kwargs)
 
     return accept_arguments
-
-
-@email_exists
-@username_exists
-@roles_exist
-def _checker(username, email, roles):
-    print("Username {} ".format(username))
-    print("Email {}".format(email))
-    print("Roles {}".format(roles))
-    return username, email, roles

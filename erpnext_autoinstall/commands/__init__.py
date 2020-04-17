@@ -32,7 +32,7 @@ def _set_user_role(username, role):
         frappe.db.commit()
 
 
-def _create_user(username, email, firstname, lastname):
+def _add_user(username, email, firstname, lastname):
     if not firstname:
         firstname = input("First name: ")
     if not lastname:
@@ -146,9 +146,9 @@ def delete_user(username, force=False):
 @click.option('--lastname', help="Last name")
 @pass_context
 @connect_to_db
-def create_user(username, email, firstname=None, lastname=None):
-    _create_user(username, email, firstname, lastname)
+def add_user(username, email, firstname=None, lastname=None):
+    _add_user(username, email, firstname, lastname)
 
 
 commands = [set_user_permissions,
-            list_users, set_user_password, delete_user, create_user, set_user_role]
+            list_users, set_user_password, delete_user, add_user, set_user_role]
