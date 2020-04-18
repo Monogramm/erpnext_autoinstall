@@ -112,6 +112,8 @@ services:
       ## [TODO] Autoinstall - Email accounts configuration
       #- EMAIL_ACCOUNT_ADDRESS_ACCOUNT=${EMAIL_ACCOUNT_ADDRESS_ACCOUNT}
       #- EMAIL_ACCOUNT_PASSWORD=${EMAIL_ACCOUNT_PASSWORD}
+      # Autoinstall - System manager configuration
+      - SYSTEM_MANAGER_EMAIL=${SYSTEM_MANAGER_EMAIL}
     volumes:
       - /srv/erpnext/frappe/sites:/home/frappe/frappe-bench/sites
       - /srv/erpnext/frappe/logs:/home/frappe/frappe-bench/logs

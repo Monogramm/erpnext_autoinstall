@@ -66,8 +66,12 @@ bench doctor
 FRAPPE_APP_UNIT_TEST_REPORT="$(pwd)/sites/.${FRAPPE_APP_TO_TEST}_unit_tests.xml"
 FRAPPE_APP_UNIT_TEST_PROFILE="$(pwd)/sites/.${FRAPPE_APP_TO_TEST}_unit_tests.prof"
 
-#bench run-tests --help
+echo "Creating system manager for test..."
+if ! bench list-users | grep 'system_manager@example.com'; then
+    bench add-system-manager "system_manager@example.com"
+fi
 
+#bench run-tests --help
 echo "Executing Unit Tests of '${FRAPPE_APP_TO_TEST}' app..."
 if [ "${TEST_VERSION}" = "10" ]; then
     bench run-tests \
@@ -107,13 +111,14 @@ if [ -f ./sites/.coverage ]; then
     echo "Unit Tests coverage report of '${FRAPPE_APP_TO_TEST}' app:"
     coverage report -m
 
-    #echo "Sending Unit Tests coverage of '${FRAPPE_APP_TO_TEST}' app to Coveralls..."
-    #coveralls -b "$(pwd)/apps/${FRAPPE_APP_TO_TEST}" -d "$(pwd)/sites/.coverage"
+    echo "Sending Unit Tests coverage of '${FRAPPE_APP_TO_TEST}' app to Coveralls..."
+    coveralls -b "$(pwd)/apps/${FRAPPE_APP_TO_TEST}" -d "$(pwd)/sites/.coverage"
 
     # TODO When frappe supports coverage report in XML format
     # https://github.com/frappe/frappe/issues/9696
-    #echo "Sending Unit Tests coverage of '${FRAPPE_APP_TO_TEST}' app to Codacy..."
-    #wget -qO - https://coverage.codacy.com/get.sh | sh -s report -l Python -r "$(pwd)/sites/coverage.xml"
+    echo "Sending Unit Tests coverage of '${FRAPPE_APP_TO_TEST}' app to Codacy..."
+    coverage xml
+    wget -qO - https://coverage.codacy.com/get.sh | sh -s report -l Python -r "$(pwd)/coverage.xml"
 
     rm ./.coverage
     set -e
@@ -165,6 +170,46 @@ fi
 
 
 ################################################################################
+### Testing bench commands
+
+if ! bench list-users | grep 'Administrator'; then
+    echo "bench list-users command did not return 'Administrator'"
+    exit 1
+fi
+
+if ! bench add-user 'test_user' 'test_user@mail.ru' --firstname 'Test' --lastname 'User'; then
+    echo "bench add-user command did not create user 'test_user'"
+    exit 1
+fi
+
+if ! bench list-users --email 'test_user@mail.ru' | grep 'test_user'; then
+    echo "bench list-users command did not return 'test_user'"
+    exit 1
+fi
+
+if bench list-users --username 'this_user_doesntexists' | grep 'test_user'; then
+    echo "bench list-users command returned 'test_user'"
+    exit 1
+fi
+
+if bench delete-user 'this_user_doesntexists'; then
+    echo "bench delete-user command did not fail on user 'this_user_doesntexists'"
+    exit 1
+fi
+
+if ! bench delete-user 'test_user' --force; then
+    echo "bench delete-user command failed on user 'test_user'"
+    exit 1
+fi
+
+if bench list-users --username 'test_user' --email 'test_user@mail.ru' | grep 'test_user'; then
+    echo "bench list-users command returned 'test_user'"
+    exit 1
+fi
+
+
+
+
 # Success
 echo 'Frappe app '${FRAPPE_APP_TO_TEST}' tests finished'
 echo 'Check the CI reports and logs for details.'
