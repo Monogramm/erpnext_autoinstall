@@ -75,6 +75,7 @@ after_script:
   - cd "$home"
   - sudo pip install coverage==4.5.4
   - sudo pip install python-coveralls
+  - curl https://deepsource.io/cli | sudo sh
   # Create same directory path as docker test execution
   - sudo mkdir -p '/home/frappe/frappe-bench/apps'
   - sudo ln -sf "$home" '/home/frappe/frappe-bench/apps/erpnext_autoinstall'
@@ -88,6 +89,9 @@ after_script:
   - test -z "$CODACY_PROJECT_TOKEN" || bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Python -r "./coverage.xml"
   # Publish coverage to Codecov
   - test -z "$CODECOV_TOKEN" || bash <(curl -s https://codecov.io/bash)
+  # Publish coverage to DeepSource
+  - export DEEPSOURCE_DSN=https://sampledsn@deepsource.io
+  - ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
 
 notifications:
   email: false
