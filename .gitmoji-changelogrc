@@ -1,7 +1,7 @@
 {
   "project": {
     "name": "erpnext_autoinstall",
-    "description": "TODO_APP_DESCRIPTION",
-    "version": "0.0.1"
+    "description": "Frappe application for automatic setup of ERPNext",
+    "version": "1.2.0"
   }
 }
