@@ -81,6 +81,7 @@ after_script:
   # Copy and convert coverage to XML format
   - cp '/srv/erpnext/frappe/sites/.coverage' .coverage
   - coverage xml
+  - coverage report -m
   # Publish coverage to Coveralls
   - coveralls -b "$home" -d "$home/.coverage"
   # Publish coverage to Codacy
