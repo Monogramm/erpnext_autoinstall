@@ -10,8 +10,8 @@ from __future__ import unicode_literals
 
 source_link = "https://github.com/Monogramm/erpnext_autoinstall"
 docs_base_url = "https://monogramm.github.io/erpnext_autoinstall"
-headline = "TODO_APP_DESCRIPTION"
-sub_heading = "TODO_APP_USAGE"
+headline = "Frappe application for automatic setup of ERPNext."
+sub_heading = "Automatically setup Frappe with Env Var and bench commands."
 
 
 def get_context(context):
