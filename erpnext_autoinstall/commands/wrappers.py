@@ -8,10 +8,7 @@ import frappe
 
 
 def connect_to_db(f):
-    """Connection to database wrapper.
-
-    This function opens database connection, execute function then destroy
-    connection."""
+    """Connection to database wrapper."""
     def accept_arguments(context, **kwargs):
         site = context.obj['sites'][0]
         frappe.init(site=site)
