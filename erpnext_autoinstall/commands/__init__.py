@@ -11,10 +11,21 @@ import frappe
 from click import pass_context
 import getpass
 
+from frappe.core.doctype.user.user import generate_keys
 from frappe.utils.password import update_password
 
 from erpnext_autoinstall.commands.wrappers import connect_to_db, \
     username_exists, roles_exist, role_profile_exists
+
+
+def _get_user_api_secret(username):
+    generate_keys(username)
+    frappe.db.commit()
+    # Use current user credentials
+    generated_secret = frappe.utils.password.get_decrypted_password(
+        "User", username, fieldname='api_secret'
+    )
+    print("API secret for user {}: {}".format(username, generated_secret))
 
 
 def _list_users(username=None, email=None):
@@ -164,6 +175,15 @@ def set_user_role_profile(username, role_profile):
     _set_user_role_profile(username, role_profile)
 
 
-commands = [list_users,
-            delete_user, add_user, set_user_password, set_user_roles,
-            set_user_role_profile]
+@click.command('get-user-api-secret', help="Generate api key")
+@click.argument("username")
+@pass_context
+@connect_to_db
+@username_exists
+def get_user_api_secret(username):
+    """Get user's secret api by username """
+    _get_user_api_secret(username)
+
+
+commands = [list_users, delete_user, add_user, set_user_password, set_user_roles, set_user_role_profile,
+            get_user_api_secret]
