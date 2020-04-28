@@ -8,7 +8,7 @@ import unittest
 import frappe
 
 from erpnext_autoinstall.commands import commands, _list_users, _delete_user, \
-    _add_user, _set_user_password, _set_user_roles, _set_user_role_profile
+    _add_user, _set_user_password, _set_user_roles, _set_user_role_profile, _get_user_api_secret
 
 
 def get_hash_password_from_user(usr, data):
@@ -153,3 +153,7 @@ class TestCommands(unittest.TestCase):
         _set_user_role_profile(self.test_user_name, self.test_role_profile)
         self.assertEqual(frappe.get_doc(
             'User', self.test_user_email).role_profile_name, self.test_role_profile)
+
+    def test_get_user_api_secret_not_none(self):
+        secret_key = _get_user_api_secret(self.test_user_name)
+        self.assertIsNotNone(secret_key)

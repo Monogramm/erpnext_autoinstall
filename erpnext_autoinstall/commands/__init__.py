@@ -26,6 +26,7 @@ def _get_user_api_secret(username):
         "User", username, fieldname='api_secret'
     )
     print("API secret for user {}: {}".format(username, generated_secret))
+    return generated_secret
 
 
 def _list_users(username=None, email=None):
