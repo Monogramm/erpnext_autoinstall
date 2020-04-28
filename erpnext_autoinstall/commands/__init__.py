@@ -17,16 +17,28 @@ from erpnext_autoinstall.commands.wrappers import connect_to_db, \
     username_exists, roles_exist, role_profile_exists
 
 
-def _get_user_api_secret(username):
+def _add_user_api_key(username):
     from frappe.core.doctype.user.user import generate_keys
     generate_keys(username)
     frappe.db.commit()
-    # Use current user credentials
-    generated_secret = frappe.utils.password.get_decrypted_password(
-        "User", username, fieldname='api_secret'
-    )
-    print("API secret for user {}: {}".format(username, generated_secret))
-    return generated_secret
+    print("API key generated for user {}".format(username))
+
+
+def _get_user_api_key(username):
+    user_details = frappe.get_doc("User", username)
+    if user_details.api_key:
+        print(user_details.api_key)
+        return user_details.api_key
+
+
+def _get_user_api_secret(username):
+    user_details = frappe.get_doc("User", username)
+    if user_details.api_secret:
+        generated_secret = frappe.utils.password.get_decrypted_password(
+            "User", username, fieldname='api_secret'
+        )
+        print(generated_secret)
+        return generated_secret
 
 
 def _list_users(username=None, email=None):
@@ -176,15 +188,35 @@ def set_user_role_profile(username, role_profile):
     _set_user_role_profile(username, role_profile)
 
 
-@click.command('get-user-api-secret', help="Generate api key")
+@click.command('get-user-api-secret', help="Generate API secret")
+@click.argument("username")
+@pass_context
+@connect_to_db
+def get_user_api_secret(username):
+    """Get user's secret api by username """
+    if frappe.db.exists('User', {'username': username}):
+        _get_user_api_secret(username)
+
+
+@click.command('get-user-api-key', help="Get API key")
+@click.argument("username")
+@pass_context
+@connect_to_db
+def get_user_api_key(username):
+    """Get user's api key by username"""
+    if frappe.db.exists("User", {"username": username}):
+        _get_user_api_key(username)
+
+
+@click.command('add-user-api-key', help="Get API key")
 @click.argument("username")
 @pass_context
 @connect_to_db
 @username_exists
-def get_user_api_secret(username):
-    """Get user's secret api by username """
-    _get_user_api_secret(username)
+def add_user_api_key(username):
+    if frappe.db.exists("User", {"username": username}):
+        _add_user_api_key(username)
 
 
 commands = [list_users, delete_user, add_user, set_user_password, set_user_roles, set_user_role_profile,
-            get_user_api_secret]
+            get_user_api_secret, add_user_api_key, get_user_api_key]
