@@ -157,7 +157,13 @@ class TestCommands(unittest.TestCase):
 
     def test_get_user_api_secret_does_not_exists(self):
         if frappe.__version__[:2] != "10":
-            self.assertRaises(frappe.DoesNotExistError, _get_user_api_secret, "Alien42")
+            api_secret = _get_user_api_secret("Alien42")
+            self.assertIsNone(api_secret)
+
+    def test_get_user_api_secret_admin(self):
+        if frappe.__version__[:2] != "10":
+            api_secret = _get_user_api_secret("Administrator")
+            self.assertIsNotNone(api_secret)
 
     def test_add_user_api_key_admin(self):
         if frappe.__version__[:2] != "10":
@@ -165,10 +171,10 @@ class TestCommands(unittest.TestCase):
             api_key = frappe.get_doc("User", "Administrator").api_key
             self.assertIsNotNone(api_key)
 
-    def test_get_user_api_secret_admin(self):
+    def test_get_user_api_key_does_not_exist(self):
         if frappe.__version__[:2] != "10":
-            api_secret = _get_user_api_secret("Administrator")
-            self.assertIsNotNone(api_secret)
+            api_key = _get_user_api_key("Alien42")
+            self.assertIsNone(api_key)
 
     def test_get_user_api_key_admin(self):
         if frappe.__version__[:2] != "10":
