@@ -155,5 +155,9 @@ class TestCommands(unittest.TestCase):
             'User', self.test_user_email).role_profile_name, self.test_role_profile)
 
     def test_get_user_api_secret_not_none(self):
-        secret_key = _get_user_api_secret(self.test_user_name)
+        secret_key = _get_user_api_secret("Administrator")
         self.assertIsNotNone(secret_key)
+
+    def test_get_user_api_secret_does_not_exists(self):
+        self.assertRaises(frappe.DoesNotExistError, _get_user_api_secret,
+                          "Alien42")
