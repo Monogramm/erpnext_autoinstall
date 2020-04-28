@@ -11,7 +11,6 @@ import frappe
 from click import pass_context
 import getpass
 
-from frappe.core.doctype.user.user import generate_keys
 from frappe.utils.password import update_password
 
 from erpnext_autoinstall.commands.wrappers import connect_to_db, \
@@ -19,6 +18,7 @@ from erpnext_autoinstall.commands.wrappers import connect_to_db, \
 
 
 def _get_user_api_secret(username):
+    from frappe.core.doctype.user.user import generate_keys
     generate_keys(username)
     frappe.db.commit()
     # Use current user credentials
