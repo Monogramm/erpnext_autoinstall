@@ -188,14 +188,14 @@ def set_user_role_profile(username, role_profile):
     _set_user_role_profile(username, role_profile)
 
 
-@click.command('get-user-api-secret', help="Generate API secret")
+@click.command('add-user-api-key', help="Get API key")
 @click.argument("username")
 @pass_context
 @connect_to_db
-def get_user_api_secret(username):
-    """Get user's secret api by username """
-    if frappe.db.exists('User', {'username': username}):
-        _get_user_api_secret(username)
+@username_exists
+def add_user_api_key(username):
+    if frappe.db.exists("User", {"username": username}):
+        _add_user_api_key(username)
 
 
 @click.command('get-user-api-key', help="Get API key")
@@ -208,14 +208,14 @@ def get_user_api_key(username):
         _get_user_api_key(username)
 
 
-@click.command('add-user-api-key', help="Get API key")
+@click.command('get-user-api-secret', help="Generate API secret")
 @click.argument("username")
 @pass_context
 @connect_to_db
-@username_exists
-def add_user_api_key(username):
-    if frappe.db.exists("User", {"username": username}):
-        _add_user_api_key(username)
+def get_user_api_secret(username):
+    """Get user's secret api by username """
+    if frappe.db.exists('User', {'username': username}):
+        _get_user_api_secret(username)
 
 
 commands = [list_users, delete_user, add_user, set_user_password, set_user_roles, set_user_role_profile,
