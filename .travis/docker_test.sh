@@ -222,6 +222,8 @@ if ! [ "${TEST_VERSION}" = "10" ]; then
         echo "bench get-user-api-key returned nothing"
         exit 1
     fi
+else
+  echo "API key/secrets not available on Frappe 10"
 fi
 
 # Success
