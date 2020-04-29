@@ -8,8 +8,8 @@ import unittest
 import frappe
 
 from erpnext_autoinstall.commands import commands, _list_users, _delete_user, \
-    _add_user, _set_user_password, _set_user_roles, _set_user_role_profile, _get_user_api_secret, _add_user_api_key, \
-    _get_user_api_key
+    _add_user, _set_user_password, _set_user_roles, _set_user_role_profile, _add_user_api_key, _get_user_api_key, \
+    _get_user_api_secret
 
 
 def get_hash_password_from_user(usr, data):
