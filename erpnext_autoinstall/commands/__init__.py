@@ -218,4 +218,4 @@ def get_user_api_secret(username):
 
 
 commands = [list_users, delete_user, add_user, set_user_password, set_user_roles, set_user_role_profile,
-            get_user_api_secret, add_user_api_key, get_user_api_key]
+            add_user_api_key, get_user_api_key, get_user_api_secret]
