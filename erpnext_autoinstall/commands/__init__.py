@@ -196,6 +196,7 @@ def set_user_role_profile(username, role_profile):
 @pass_context
 @connect_to_db
 def add_user_api_key(username):
+    """Generate a user's API key."""
     _add_user_api_key(username)
 
 
