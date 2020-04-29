@@ -205,7 +205,7 @@ def add_user_api_key(username):
 @pass_context
 @connect_to_db
 def get_user_api_key(username):
-    """Get user's api key by username"""
+    """Get a user's API key."""
     _get_user_api_key(username)
 
 
