@@ -213,7 +213,7 @@ def get_user_api_key(username):
 @pass_context
 @connect_to_db
 def get_user_api_secret(username):
-    """Get user's secret api by username """
+    """Get a user's API secret."""
     _get_user_api_secret(username)
 
 
