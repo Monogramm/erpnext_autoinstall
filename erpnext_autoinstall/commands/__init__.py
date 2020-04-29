@@ -23,6 +23,7 @@ def _add_user_api_key(username):
         generate_keys(username)
         frappe.db.commit()
         print("API key generated for user {}".format(username))
+        return 0
 
 
 def _get_user_api_key(username):
