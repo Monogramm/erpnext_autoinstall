@@ -207,19 +207,21 @@ if bench list-users --username 'test_user' --email 'test_user@mail.ru' | grep 't
     exit 1
 fi
 
-if ! bench add-user-api-key Administrator | grep 'API key generated for user Administrator'; then
-    echo "bench add-user-api-key command returned nothing"
-    exit 1
-fi
+if ! [ "${TEST_VERSION}" = "10" ]; then
+    if ! bench add-user-api-key Administrator | grep 'API key generated for user Administrator'; then
+        echo "bench add-user-api-key command returned nothing"
+        exit 1
+    fi
 
-if ! bench get-user-api-secret Administrator | grep ''; then
-    echo "bench get-user-api-secret returned nothing"
-    exit 1
-fi
+    if ! bench get-user-api-secret Administrator | grep ''; then
+        echo "bench get-user-api-secret returned nothing"
+        exit 1
+    fi
 
-if ! bench get-user-api-key Administrator | grep ''; then
-    echo "bench get-user-api-key returned nothing"
-    exit 1
+    if ! bench get-user-api-key Administrator | grep ''; then
+        echo "bench get-user-api-key returned nothing"
+        exit 1
+    fi
 fi
 
 # Success
