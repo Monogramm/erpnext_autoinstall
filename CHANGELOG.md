@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.3.0"></a>
+
+## 1.3.0 (2020-05-01)
+
+### Added
+
+-   ✨ API key generation ([#11](https://github.com/Monogramm/erpnext_autoinstall/issues/11)) \[[66a97fe](https://github.com/Monogramm/erpnext_autoinstall/commit/66a97feedff32d02e007b63f40321e0fd2cf5a2a)]
+
+### Miscellaneous
+
+-   Merge pull request [#12](https://github.com/Monogramm/erpnext_autoinstall/issues/12) from Monogramm/develop \[[a4430d4](https://github.com/Monogramm/erpnext_autoinstall/commit/a4430d44247fff0d9a27ef423769db92beb95d32)]
+
 <a name="1.2.0"></a>
 
 ## 1.2.0 (2020-04-18)
