@@ -85,6 +85,9 @@ Custom bench commands:
 -   `bench set-user-password`: Update user password
 -   `bench set-user-roles`: Set roles for user
 -   `bench set-user-role-profile`: Set role profile for user
+-   `bench add-user-api-key`: Generate API key by username (doesn't work in version 10)
+-   `bench get-user-api-key`: Get API key by username (doesn't work in version 10)
+-   `bench get-user-api-secret`: Get API secret by username (doesn't work in version 10)
 
 ## :white_check_mark: Run tests
 
