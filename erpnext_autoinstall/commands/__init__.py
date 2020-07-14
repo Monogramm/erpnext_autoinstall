@@ -20,7 +20,7 @@ from erpnext_autoinstall.commands.wrappers import connect_to_db, \
 def _add_user_api_key(username):
     from frappe.core.doctype.user.user import generate_keys
     if frappe.db.exists("User", {"username": username}):
-        generate_keys(username)
+        generate_keys(frappe.get_value('User', {'username': username}, 'name'))
         frappe.db.commit()
         print("API key generated for user {}".format(username))
         return 0
@@ -28,7 +28,7 @@ def _add_user_api_key(username):
 
 def _get_user_api_key(username):
     if frappe.db.exists("User", {"username": username}):
-        user_details = frappe.get_doc("User", username)
+        user_details = frappe.get_doc("User", {'username': username})
         if user_details.api_key:
             print(user_details.api_key)
             return user_details.api_key
@@ -36,7 +36,7 @@ def _get_user_api_key(username):
 
 def _get_user_api_secret(username):
     if frappe.db.exists('User', {'username': username}):
-        user_details = frappe.get_doc("User", username)
+        user_details = frappe.get_doc("User", {'username': username})
         if user_details.api_secret:
             generated_secret = frappe.utils.password.get_decrypted_password(
                 "User", username, fieldname='api_secret'
