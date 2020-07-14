@@ -192,7 +192,7 @@ def set_user_role_profile(username, role_profile):
     _set_user_role_profile(username, role_profile)
 
 
-@click.command('add-user-api-key', help="Get API key")
+@click.command('add-user-api-key', help="Add a new API key to a user")
 @click.argument("username")
 @pass_context
 @connect_to_db
