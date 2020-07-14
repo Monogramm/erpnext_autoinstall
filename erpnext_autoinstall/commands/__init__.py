@@ -17,6 +17,7 @@ from erpnext_autoinstall.commands.wrappers import connect_to_db, \
     username_exists, roles_exist, role_profile_exists
 
 
+
 def _add_user_api_key(username):
     from frappe.core.doctype.user.user import generate_keys
     if frappe.db.exists("User", {"username": username}):
@@ -44,7 +45,7 @@ def _get_user_api_secret(username):
             print(generated_secret)
             return generated_secret
 
-
+          
 def _list_users(username=None, email=None):
     filters = []
 
@@ -192,13 +193,30 @@ def set_user_role_profile(username, role_profile):
     _set_user_role_profile(username, role_profile)
 
 
-@click.command('add-user-api-key', help="Get API key")
+def _add_user_api_key(username):
+    from frappe.core.doctype.user.user import generate_keys
+    if frappe.db.exists("User", {"username": username}):
+        generate_keys(username)
+        frappe.db.commit()
+        print("API key generated for user {}".format(username))
+        return 0
+
+
+@click.command('add-user-api-key', help="Add a new API key to a user")
 @click.argument("username")
 @pass_context
 @connect_to_db
 def add_user_api_key(username):
     """Generate a user's API key."""
     _add_user_api_key(username)
+
+
+def _get_user_api_key(username):
+    if frappe.db.exists("User", {"username": username}):
+        user_details = frappe.get_doc("User", username)
+        if user_details.api_key:
+            print(user_details.api_key)
+            return user_details.api_key
 
 
 @click.command('get-user-api-key', help="Get API key")
@@ -208,6 +226,17 @@ def add_user_api_key(username):
 def get_user_api_key(username):
     """Get a user's API key."""
     _get_user_api_key(username)
+
+
+def _get_user_api_secret(username):
+    if frappe.db.exists('User', {'username': username}):
+        user_details = frappe.get_doc("User", username)
+        if user_details.api_secret:
+            generated_secret = frappe.utils.password.get_decrypted_password(
+                "User", username, fieldname='api_secret'
+            )
+            print(generated_secret)
+            return generated_secret
 
 
 @click.command('get-user-api-secret', help="Generate API secret")
