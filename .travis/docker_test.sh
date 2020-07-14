@@ -227,13 +227,12 @@ if ! [ "${TEST_VERSION}" = "10" ]; then
         echo "bench add-user-api-key command returned nothing"
         exit 1
     fi
-
-    if ! bench delete-user 'test_user' --force; then
-    echo "bench delete-user command failed on user 'test_user'"
-    exit 1
-fi
 else
   echo "API key/secrets not available on Frappe 10"
+fi
+if ! bench delete-user 'test_user' --force; then
+    echo "bench delete-user command failed on user 'test_user'"
+    exit 1
 fi
 
 # Success

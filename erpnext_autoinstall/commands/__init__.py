@@ -17,7 +17,6 @@ from erpnext_autoinstall.commands.wrappers import connect_to_db, \
     username_exists, roles_exist, role_profile_exists
 
 
-
 def _add_user_api_key(username):
     from frappe.core.doctype.user.user import generate_keys
     if frappe.db.exists("User", {"username": username}):
@@ -45,7 +44,7 @@ def _get_user_api_secret(username):
             print(generated_secret)
             return generated_secret
 
-          
+
 def _list_users(username=None, email=None):
     filters = []
 
