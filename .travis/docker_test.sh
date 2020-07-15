@@ -197,6 +197,11 @@ if bench delete-user 'this_user_doesntexists'; then
     exit 1
 fi
 
+if ! bench delete-user 'test_user' --force; then
+    echo "bench delete-user command failed on user 'test_user'"
+    exit 1
+fi
+
 if bench list-users --username 'test_user' --email 'test_user@mail.ru' | grep 'test_user'; then
     echo "bench list-users command returned 'test_user'"
     exit 1
@@ -218,21 +223,28 @@ if ! [ "${TEST_VERSION}" = "10" ]; then
         exit 1
     fi
 
-    if ! bench add-user-api-key test_user | grep 'API key generated for user test_user'; then
+    if ! bench add-user 'test_user_2' 'test_user_2@example.com' --firstname 'Test' --lastname 'User'; then
+    echo "bench add-user command did not create user 'test_user'"
+    exit 1
+    fi
+
+    if ! bench add-user-api-key test_user_2 | grep 'API key generated for user test_user_2'; then
         echo "bench add-user-api-key command returned nothing"
         exit 1
     fi
 
-    if ! bench get-user-api-key test_user | grep ''; then
-        echo "bench add-user-api-key command returned nothing"
+    if ! bench get-user-api-key test_user_2 | grep ''; then
+        echo "bench get-user-api-key returned nothing"
         exit 1
     fi
+
+    if bench delete-user 'test_user_2'; then
+    echo "bench delete-user command did not fail on user 'this_user_doesntexists'"
+    exit 1
+fi
+
 else
   echo "API key/secrets not available on Frappe 10"
-fi
-if ! bench delete-user 'test_user' --force; then
-    echo "bench delete-user command failed on user 'test_user'"
-    exit 1
 fi
 
 # Success
