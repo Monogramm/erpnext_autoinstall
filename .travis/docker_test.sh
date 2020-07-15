@@ -238,7 +238,7 @@ if ! [ "${TEST_VERSION}" = "10" ]; then
         exit 1
     fi
 
-    if bench delete-user 'test_user_2'; then
+    if bench delete-user 'test_user_2' --force; then
     echo "bench delete-user command did not fail on user 'this_user_doesntexists'"
     exit 1
 fi
