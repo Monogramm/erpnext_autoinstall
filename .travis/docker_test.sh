@@ -223,9 +223,12 @@ if ! [ "${TEST_VERSION}" = "10" ]; then
         exit 1
     fi
 
-    if ! bench add-user 'test_user_2' 'test_user_2@example.com' --firstname 'Test' --lastname 'User'; then
-    echo "bench add-user command did not create user 'test_user'"
-    exit 1
+    if ! bench list-users | grep 'test_user_2@example.com'; then
+      if ! bench add-user 'test_user_2' 'test_user_2@example.com' --firstname 'Test' --lastname 'User'; then
+        echo "bench add-user command did not create user 'test_user'"
+        exit 1
+      fi
+
     fi
 
     if ! bench add-user-api-key test_user_2 | grep 'API key generated for user test_user_2'; then
