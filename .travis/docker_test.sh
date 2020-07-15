@@ -188,7 +188,7 @@ if ! bench add-user-api-key 'test_user' | grep 'API key generated for user test_
 fi
 
 if ! bench get-user-api-key 'test_user' | grep ''; then
-     echo "bench get-user-api-key returned nothing"
+    echo "bench get-user-api-key returned nothing"
     exit 1
 fi
 
