@@ -182,6 +182,17 @@ if ! bench add-user 'test_user' 'test_user@mail.ru' --firstname 'Test' --lastnam
     exit 1
 fi
 
+if ! bench add-user-api-key 'test_user' | grep 'API key generated for user test_user'; then
+    echo "bench add-user-api-key command returned nothing"
+    exit 1
+fi
+
+if ! bench get-user-api-key 'test_user' | grep ''; then
+    echo "bench get-user-api-key returned nothing"
+    exit 1
+fi
+
+
 if ! bench list-users --email 'test_user@mail.ru' | grep 'test_user'; then
     echo "bench list-users command did not return 'test_user'"
     exit 1
