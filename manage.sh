@@ -49,6 +49,31 @@ console() {
     dc -it "${1}" exec erpnext_app bench console ${@:2}
 }
 
+prepare_release() {
+    NEW_VERSION=${1}
+    if [ -z "${NEW_VERSION}" ] ; then
+        log 'Missing release version!'
+        return 1;
+    fi
+
+    log 'Updating Frappe app version...'
+    sed -i \
+        -e "s|__version__ = '.*'|__version__ = '${NEW_VERSION}'|g" \
+        ./erpnext_autoinstall/__init__.py
+
+    log 'Updating gitmoji-changelog version...'
+    sed -i \
+        -e "s|\"version\": \".*\"|\"version\": \"${NEW_VERSION}\"|g" \
+        ./.gitmoji-changelogrc
+
+    # Generate Changelog for version
+    log "Generating Changelog for version '${NEW_VERSION}'..."
+    npm install
+    npm run gitmoji-changelog
+
+    # TODO Add and commit to git with message `:bookmark: Release X.Y.Z`
+}
+
 usage() {
     echo "usage: ./manage.sh COMMAND [ARGUMENTS]
 
@@ -60,6 +85,7 @@ usage() {
         logs        Follow logs of Dev env
         down        Stop and remove Dev env
         console     Send command to Dev env bench console
+        prepare-release     Prepare Frappe app release
     "
 }
 
@@ -77,6 +103,7 @@ case "${1}" in
     logs) logs docker-compose.yml ${@:2};;
     down) down docker-compose.yml ${@:2};;
     console) console docker-compose.yml ${@:2};;
+    prepare-release) prepare_release ${@:2};;
     # PROD env
     #build) TAG=${DOCKER_TAG} \
     #    VCS_REF=`git rev-parse --short HEAD` \

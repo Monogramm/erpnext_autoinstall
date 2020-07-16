@@ -1,5 +1,36 @@
 # Changelog
 
+<a name="1.3.1"></a>
+
+## 1.3.1 (2020-07-16)
+
+### Added
+
+-   ✅ Update test \[[e02aeb4](https://github.com/Monogramm/erpnext_autoinstall/commit/e02aeb49896c6fd701e68d3291bd346ab4130d77)]
+-   ✅ Add test \[[3d82136](https://github.com/Monogramm/erpnext_autoinstall/commit/3d82136bb5aab49d1055d5b6622721959629af5c)]
+
+### Changed
+
+-   🎨 Change order of functions \[[e54a575](https://github.com/Monogramm/erpnext_autoinstall/commit/e54a575924cc81435f31598955fb3e71f9166daa)]
+-   🎨 Change order of functions \[[f085653](https://github.com/Monogramm/erpnext_autoinstall/commit/f0856538aa0e8f6fde214e66c4697ffc22409bf3)]
+-   🎨 Fix Github templates format \[[47dfd09](https://github.com/Monogramm/erpnext_autoinstall/commit/47dfd093c5c1cbb6c18782428e4629ab207abaa5)]
+
+### Fixed
+
+-   🐛 Fix test \[[62c653c](https://github.com/Monogramm/erpnext_autoinstall/commit/62c653c80307b004abd6f6bf4f1546fef14d4814)]
+-   🐛 Fix test \[[74beff7](https://github.com/Monogramm/erpnext_autoinstall/commit/74beff76457823ecf9fb1840afba284afbd02921)]
+-   🐛 Add force \[[d7991dc](https://github.com/Monogramm/erpnext_autoinstall/commit/d7991dca863a2ac5a6e904185bbd2e44305af4ac)]
+-   🐛 Fix username bug \[[a962552](https://github.com/Monogramm/erpnext_autoinstall/commit/a9625528d58443a6b54acf54ebc272f167901492)]
+
+### Miscellaneous
+
+-   Merge pull request [#13](https://github.com/Monogramm/erpnext_autoinstall/issues/13) from Monogramm/fix/bug_with_username \[[1242b69](https://github.com/Monogramm/erpnext_autoinstall/commit/1242b697edfde9ebc1a6785ea1eef30afbbdcb35)]
+-   Merge branch 'fix/bug_with_username' of github.com:Monogramm/erpnext_autoinstall into fix/bug_with_username \[[9b4c60a](https://github.com/Monogramm/erpnext_autoinstall/commit/9b4c60ac176aa3ff250b75be8cee3516690f26fe)]
+-   Update .travis/docker_test.sh \[[87585e2](https://github.com/Monogramm/erpnext_autoinstall/commit/87585e24aa90625fc3c58e24c3da1c4544c39198)]
+-   Merge branch 'master' into fix/bug_with_username \[[c3997a1](https://github.com/Monogramm/erpnext_autoinstall/commit/c3997a1ddb4795cc8042574b459b598f6f0e5591)]
+-   💡 Fix help of add-user-api-key \[[1288a99](https://github.com/Monogramm/erpnext_autoinstall/commit/1288a993066c89e92cb954ef908c2daf100581a2)]
+-   🙈 Ignore built docs \[[3f3e935](https://github.com/Monogramm/erpnext_autoinstall/commit/3f3e9359d2279a58703ebd3c63ca4e83b304487f)]
+
 <a name="1.3.0"></a>
 
 ## 1.3.0 (2020-05-01)
