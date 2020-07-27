@@ -51,14 +51,6 @@ echo 'Docker tests successful'
 
 FRAPPE_APP_TO_TEST=erpnext_autoinstall
 
-echo "Preparing Frappe application '${FRAPPE_APP_TO_TEST}' tests..."
-
-bench set-config allow_tests true
-
-bench doctor
-bench enable-scheduler
-bench doctor
-
 ################################################################################
 # Frappe Unit tests
 # https://frappe.io/docs/user/en/guides/automated-testing/unit-testing
@@ -66,28 +58,41 @@ bench doctor
 FRAPPE_APP_UNIT_TEST_REPORT="$(pwd)/sites/.${FRAPPE_APP_TO_TEST}_unit_tests.xml"
 FRAPPE_APP_UNIT_TEST_PROFILE="$(pwd)/sites/.${FRAPPE_APP_TO_TEST}_unit_tests.prof"
 
-echo "Creating system manager for test..."
-if ! bench list-users | grep 'system_manager@example.com'; then
-    bench add-system-manager "system_manager@example.com"
-fi
+if [ -n "${FRAPPE_APP_TO_TEST}" ]; then
 
-#bench run-tests --help
-echo "Executing Unit Tests of '${FRAPPE_APP_TO_TEST}' app..."
-if [ "${TEST_VERSION}" = "10" ]; then
-    bench run-tests \
-        --app "${FRAPPE_APP_TO_TEST}" \
-        --junit-xml-output "${FRAPPE_APP_UNIT_TEST_REPORT}" \
-        --profile > "${FRAPPE_APP_UNIT_TEST_PROFILE}"
-else
-    bench run-tests \
-        --app "${FRAPPE_APP_TO_TEST}" \
-        --coverage \
-        --junit-xml-output "${FRAPPE_APP_UNIT_TEST_REPORT}" \
-        --profile > "${FRAPPE_APP_UNIT_TEST_PROFILE}"
+    echo "Preparing Frappe application '${FRAPPE_APP_TO_TEST}' tests..."
 
-    # TODO When frappe supports coverage report in XML format
-    # https://github.com/frappe/frappe/issues/9696
-    # --coverage-report=xml
+    bench set-config allow_tests true -g
+
+    bench doctor
+    bench enable-scheduler
+    bench doctor
+
+    echo "Creating system manager for test..."
+    if ! bench list-users | grep 'system_manager@example.com'; then
+        bench add-system-manager "system_manager@example.com"
+    fi
+
+    #bench run-tests --help
+
+    echo "Executing Unit Tests of '${FRAPPE_APP_TO_TEST}' app..."
+    if [ "${TEST_VERSION}" = "10" ]; then
+        bench run-tests \
+            --app "${FRAPPE_APP_TO_TEST}" \
+            --junit-xml-output "${FRAPPE_APP_UNIT_TEST_REPORT}" \
+            --profile > "${FRAPPE_APP_UNIT_TEST_PROFILE}"
+    else
+        bench run-tests \
+            --app "${FRAPPE_APP_TO_TEST}" \
+            --coverage \
+            --junit-xml-output "${FRAPPE_APP_UNIT_TEST_REPORT}" \
+            --profile > "${FRAPPE_APP_UNIT_TEST_PROFILE}"
+
+        # TODO When frappe supports coverage report in XML format
+        # https://github.com/frappe/frappe/issues/9696
+        # --coverage-report=xml
+    fi
+
 fi
 
 ## Check result of tests
